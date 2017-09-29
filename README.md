@@ -27,7 +27,7 @@ $ ionic cordova run android
 ```
 
 # Description
-The application that allows users to search and check taxi reviews from other users by entering the license number. Also, users can comment or give rating on that particular taxi.
+The application that allows users to search and check taxi reviews from other users by entering the licence number. Also, users can comment or give rating on that particular taxi.
 
 # Features
 
@@ -37,7 +37,7 @@ The application that allows users to search and check taxi reviews from other us
 
 ### Find that Taxi
 - Find taxi by typing in the licence plate number
-- Take a photo of licence plate (will be collected for research purpose)
+- Take a photo of taxi and licence plate (will be collected for research purpose)
 
 ### Create a taxi review
 - Rating according to categories (e.g. service,politeness or cleanness)
@@ -45,7 +45,7 @@ The application that allows users to search and check taxi reviews from other us
 
 ### View the reviews from other users
 - Show taxi details
-- Overall rating & comment
+- Overall rating and comment
 
 # Prototype
 ![Prototype Taxi Review](doc/prototype.png)
