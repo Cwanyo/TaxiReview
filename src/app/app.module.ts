@@ -1,10 +1,14 @@
+import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-
+import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import { FindTaxiPage } from '../pages/find-taxi/find-taxi';
+import { RecentViewPage } from '../pages/recent-view/recent-view';
+import { MyReviewPage } from '../pages/my-review/my-review';
+import { TaxiDetailPage } from '../pages/taxi-detail/taxi-detail';
+import { AddReviewPage } from '../pages/add-review/add-review';
+import { ProfilePage } from '../pages/profile/profile';
+
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -12,18 +16,26 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-    ListPage
+    FindTaxiPage,
+    RecentViewPage,
+    MyReviewPage,
+    TaxiDetailPage,
+    AddReviewPage,
+    ProfilePage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
-    ListPage
+    FindTaxiPage,
+    RecentViewPage,
+    MyReviewPage,
+    TaxiDetailPage,
+    AddReviewPage,
+    ProfilePage
   ],
   providers: [
     StatusBar,

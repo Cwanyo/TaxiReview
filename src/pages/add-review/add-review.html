@@ -1,0 +1,70 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+        <ion-title>
+            Add Review
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content padding id="page6">
+    <h3 id="addReview-heading6" style="color:#808080;text-align:center;">
+        Input your feedback
+    </h3>
+    <form id="addReview-form4">
+        <ion-list id="addReview-list5">
+            <ion-item color="none" id="addReview-list-item22">
+                Service (การบริการ)
+            </ion-item>
+            <ion-item id="addReview-range1">
+                <ion-range min="1" max="5" step="1" color="positive" value="3">
+                    <ion-label range-left>
+                        Range
+                    </ion-label>
+                </ion-range>
+            </ion-item>
+        </ion-list>
+        <div class="spacer" style="height:5px;" id="addReview-spacer7"></div>
+        <ion-list id="addReview-list6">
+            <ion-item color="none" id="addReview-list-item25">
+                Politeness (มารยาทของคนขับรถ)
+            </ion-item>
+            <ion-item id="addReview-range2">
+                <ion-range min="1" max="5" step="1" color="positive" value="3">
+                    <ion-label range-left>
+                        Range
+                    </ion-label>
+                </ion-range>
+            </ion-item>
+        </ion-list>
+        <div class="spacer" style="height:5px;" id="addReview-spacer8"></div>
+        <ion-list id="addReview-list7">
+            <ion-item color="none" id="addReview-list-item26">
+                Cleanness (ความสะอาดของรถยนต์)
+            </ion-item>
+            <ion-item id="addReview-range3">
+                <ion-range min="1" max="5" step="1" color="positive" value="3">
+                    <ion-label range-left>
+                        Range
+                    </ion-label>
+                </ion-range>
+            </ion-item>
+        </ion-list>
+        <div class="spacer" style="height:5px;" id="addReview-spacer9"></div>
+        <ion-list id="addReview-list8">
+            <ion-item color="none" id="addReview-list-item28">
+                Comment (ความคิดเห็น)
+            </ion-item>
+            <ion-item id="addReview-textarea1">
+                <ion-label>
+                    text
+                </ion-label>
+                <ion-textarea placeholder=""></ion-textarea>
+            </ion-item>
+        </ion-list>
+        <button id="addReview-button6" ion-button color="dark" block on-click="goToTaxiDetail()">
+      Submit
+    </button>
+    </form>
+</ion-content>
