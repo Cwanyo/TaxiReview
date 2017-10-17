@@ -1,31 +1,29 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
+    <ion-navbar>
+        <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>
-      Find Taxi
-    </ion-title>
-  </ion-navbar>
+        <ion-title>
+            Find Taxi
+        </ion-title>
+    </ion-navbar>
 </ion-header>
 <ion-content padding id="page1">
-  <form id="findTaxi-form1">
-    <button id="findTaxi-button1" ion-button color="light" block>
-      <ion-icon name="car"></ion-icon>
-      Take a photo
-    </button>
-    <div>
-      <img src="assets/img/ndUGKO5OTDiQNjxukiDi_taxi.jpg" style="display:block;width:100%;height:auto;margin-left:auto;margin-right:auto;" />
-    </div>
-    <div class="spacer" style="height:25px;" id="findTaxi-spacer3"></div>
-    <ion-item id="findTaxi-input3">
-      <ion-label stacked>
-        Input Plate Number
-      </ion-label>
-      <ion-input type="text" placeholder="ทว-2434"></ion-input>
-    </ion-item>
-    <button id="findTaxi-button7" ion-button color="dark" block on-click="goToTaxiDetail()">
-      Search
-    </button>
-  </form>
+    <form id="findTaxi-form1">
+        <button id="findTaxi-button1" ion-button color="light" block>
+        <ion-icon name="car"></ion-icon>
+        Take a photo
+        </button>
+        <div>
+            <img src="assets/img/ndUGKO5OTDiQNjxukiDi_taxi.jpg" style="display:block;width:100%;height:auto;margin-left:auto;margin-right:auto;" />
+        </div>
+        <div class="spacer" style="height:25px;" id="findTaxi-spacer3"></div>
+        <ion-item id="findTaxi-input3">
+            <ion-label stacked>
+                Input Plate Number
+            </ion-label>
+            <ion-input type="text" placeholder="ทว-2434"></ion-input>
+        </ion-item>
+        <button id="findTaxi-button7" ion-button color="dark" block on-click="goToTaxiDetail()">Search</button>
+    </form>
 </ion-content>
