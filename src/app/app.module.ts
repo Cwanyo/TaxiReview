@@ -4,6 +4,9 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 
 import { MyApp } from './app.component';
 
+import { AngularFireModule } from 'angularfire2';
+import { environment } from '../environments/environment';
+
 import { ProfilePage } from '../pages/profile/profile';
 import { FindTaxiPage } from '../pages/find-taxi/find-taxi';
 import { RecentViewPage } from '../pages/recent-view/recent-view';
@@ -27,6 +30,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   ],
   imports: [
     BrowserModule,
+    AngularFireModule.initializeApp(environment.firebase),
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
