@@ -10,7 +10,6 @@ import { RecentViewPage } from '../pages/recent-view/recent-view';
 import { MyReviewPage } from '../pages/my-review/my-review';
 
 import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase/app';
 
 @Component({
   templateUrl: 'app.html'
@@ -30,7 +29,7 @@ export class MyApp {
   ) {
     this.initializeApp();
 
-    afAuth.authState.subscribe(user => {
+    this.afAuth.authState.subscribe(user => {
       if (!user) {
         this.user = null;
         return;

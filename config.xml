@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>MyApp</name>
-    <description>An awesome Ionic/Cordova app.</description>
+<widget id="com.wvn.taxireview" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Taxi Review</name>
+    <description>Search and Give taxi reviews</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content src="index.html" />
     <access origin="*" />
@@ -79,9 +79,9 @@
         <splash height="2732" src="resources/ios/splash/Default@2x~universal~anyany.png" width="2732" />
     </platform>
     <universal-links>
-        <host name="https://sxg4u.app.goo.gl/" scheme="https" />
+        <host name="sxg4u.app.goo.gl" scheme="https" />
         <host name="angularfire-eb3f9.firebaseapp.com" scheme="https">
-            <path url="/__/auth/callback"/>
+            <path url="/__/auth/callback" />
         </host>
     </universal-links>
     <preference name="AndroidLaunchMode" value="singleTask" />
