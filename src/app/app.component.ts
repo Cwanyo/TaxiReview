@@ -9,6 +9,9 @@ import { FindTaxiPage } from '../pages/find-taxi/find-taxi';
 import { RecentViewPage } from '../pages/recent-view/recent-view';
 import { MyReviewPage } from '../pages/my-review/my-review';
 
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase/app';
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -16,14 +19,24 @@ export class MyApp {
   @ViewChild(Nav) navCtrl: Nav;
     rootPage:any = FindTaxiPage;
 
+  user;
+
   constructor(
     public platform: Platform, 
     public menu: MenuController,
     public statusBar: StatusBar, 
-    public splashScreen: SplashScreen
+    public splashScreen: SplashScreen,
+    private afAuth: AngularFireAuth
   ) {
     this.initializeApp();
 
+    afAuth.authState.subscribe(user => {
+      if (!user) {
+        this.user = null;
+        return;
+      }
+      this.user = user;
+    });
     //TODO - can set pages varible here, it can store {title:'',component:''}
   }
 

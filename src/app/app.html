@@ -1,14 +1,20 @@
 <ion-menu [content]="mainContent">
     <ion-content id="side-menu21" class="side-menu-gradient">
         <div class="spacer" style="height:25px;" id="menu-spacer1"></div>
-        <div class="profile-image">
+
+        <div class="profile-details" *ngIf="user != null">
             <a style="display:block;" menuClose="" on-click="goToProfile()">
-                <img src="assets/img/VT7GJaEnQRy9yfKebF9K_john-wick.jpg" style="display:block;width:100%;height:auto;margin-left:auto;margin-right:auto;" />
+                <img src="{{user.photoURL}}" style="display:block;width:50%;height:auto;margin-left:auto;margin-right:auto;" />
             </a>
+            <h3 id="menu-heading1" style="color:#FFFFFF;font-weight:300;text-align:center;" menuClose="" on-click="goToProfile()">
+                {{user.displayName}}
+            </h3>
         </div>
-        <h3 id="menu-heading1" style="color:#FFFFFF;font-weight:300;text-align:center;">
-            John Wick
-        </h3>
+
+        <div class="profile-login" *ngIf="user == null">
+            <button ion-button color="dark" block menuClose="" (click)="goToProfile()">Log in</button>
+        </div>
+
         <div class="spacer" style="height:25px;" id="menu-spacer2"></div>
         <ion-list id="menu-list9">
             <ion-item color="none" menuClose="" on-click="goToFindTaxi()" id="menu-list-item29" class="side-menu-item">
@@ -24,6 +30,7 @@
                 My Review
             </ion-item>
         </ion-list>
+
     </ion-content>
 </ion-menu>
 
