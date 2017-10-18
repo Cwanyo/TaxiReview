@@ -7,6 +7,8 @@ import { TaxiDetailPage } from '../taxi-detail/taxi-detail';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 
+import firebase from 'firebase';
+
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
 @Component({
@@ -16,8 +18,8 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 export class FindTaxiPage {
 
   taxis: Observable<any[]>;
-  public taxiPhoto: any;
-  public base64Image: string;
+  public taxiPhoto: string;
+  storage = firebase.storage();
 
   constructor(
     public navCtrl: NavController,
@@ -41,12 +43,10 @@ export class FindTaxiPage {
     }
     
     this.camera.getPicture(options).then((imageData) => {
-     // imageData is either a base64 encoded string or a file URI
-     // If it's base64:
-     this.base64Image = 'data:image/jpeg;base64,' + imageData;
-     this.taxiPhoto = this.base64Image;
+     this.taxiPhoto = 'data:image/jpeg;base64,' + imageData;
+     const storageRef = this.storage.ref('images/taxis/'+new Date().getTime()+'.jpg');
+     storageRef.putString(this.taxiPhoto,"data_url");
     }, (err) => {
-     // Handle error
      console.log("Take a photo error",err);
     });
   }
