@@ -80,7 +80,7 @@
     </platform>
     <universal-links>
         <host name="sxg4u.app.goo.gl" scheme="https" />
-        <host name="angularfire-eb3f9.firebaseapp.com" scheme="https">
+        <host name="taxireview-wvn.firebaseapp.com" scheme="https">
             <path url="/__/auth/callback" />
         </host>
     </universal-links>
