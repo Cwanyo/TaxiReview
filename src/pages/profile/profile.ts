@@ -38,9 +38,18 @@ export class ProfilePage {
         break;
     }
 
-    this.afAuth.auth.signInWithPopup(signInProvider)
+    /*this.afAuth.auth.signInWithPopup(signInProvider)
       .then(result => console.log("Logged-in with "+provider,result))
       .catch(error => console.log("Error Sing-in with "+provider,error));
+    */
+
+    this.afAuth.auth.signInWithRedirect(signInProvider)
+    .then( () => {
+      this.afAuth.auth.getRedirectResult().then( res => {
+        console.log('Logging in with - '+provider);
+        console.log(res);
+      });
+    });
     
     /*this.afAuth.auth.signInWithRedirect(signInProvider)
     .then(() => {
