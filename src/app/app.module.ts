@@ -9,7 +9,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
-import { Facebook } from '@ionic-native/facebook';
+import { Camera } from '@ionic-native/camera';
 
 import { environment } from '../environments/environment';
 
@@ -56,7 +56,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     StatusBar,
     SplashScreen,
     AngularFireDatabase,
-    Facebook,
+    Camera,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
