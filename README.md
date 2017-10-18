@@ -52,6 +52,7 @@ The application that allows users to search and check taxi reviews from other us
 Link to our [prototype](https://creator.ionic.io/share/dd7f0f339376)
 
 # Known issues and bugs
+- Authentication problem with real device due to browser authentication is not supported, might have to use native api
 
 # Contributors
 - Chatchawan yoojuie
