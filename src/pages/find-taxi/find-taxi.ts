@@ -69,7 +69,6 @@ export class FindTaxiPage {
       .catch(error => console.log("Error getting photo URL",error));
     })
     .catch(error => console.log("Error uploading photo",error))
-    
 
   }
 
