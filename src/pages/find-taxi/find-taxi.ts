@@ -41,14 +41,36 @@ export class FindTaxiPage {
       correctOrientation: true,
       saveToPhotoAlbum: true
     }
+
+    let photoPath = "images/taxis/"+new Date().getTime()+".jpg";
+    let photoURL;
+      
+    this.camera.getPicture(options)
+    .then((imageData) => {
+      this.taxiPhoto = 'data:image/jpeg;base64,' + imageData;
+      console.log("Took imaage");
+    })
+    .catch(error => console.log("Error taking photo",error))
+    .then( () => {
+      const storageRef = this.storage.ref(photoPath);
+      storageRef.putString(this.taxiPhoto,"data_url")
+      .then( () =>{
+        console.log("Uploaded image");
+        const storageRef = this.storage.ref(photoPath);
+        storageRef.getDownloadURL()
+        .then(function(url) {
+          photoURL = url;
+          console.log("URL:",url);
+          // Insert url into an <img> tag to "download"
+        }).catch(function(error) {
+          console.log("URL error:",error);
+        });
+      })
+      .catch(error => console.log("Error getting photo URL",error));
+    })
+    .catch(error => console.log("Error uploading photo",error))
     
-    this.camera.getPicture(options).then((imageData) => {
-     this.taxiPhoto = 'data:image/jpeg;base64,' + imageData;
-     const storageRef = this.storage.ref('images/taxis/'+new Date().getTime()+'.jpg');
-     storageRef.putString(this.taxiPhoto,"data_url");
-    }, (err) => {
-     console.log("Take a photo error",err);
-    });
+
   }
 
   goToTaxiDetail(params){
