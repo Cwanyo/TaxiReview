@@ -21,10 +21,13 @@ export class FindTaxiPage {
 
   taxis: Observable<any[]>;
 
+  public gotTaxiImage: boolean = false;
+  public gotTaxiDatail: boolean = false;
+
   public taxiPhoto: string;
   public rawTaxiPhoto: string;
   public taxiDetail: any;
-  
+
   public taxiLicensePlate: string = '';
 
   storage = firebase.storage();
@@ -41,12 +44,14 @@ export class FindTaxiPage {
   }
 
   resetValue(){
+    this.gotTaxiImage = false;
+    this.gotTaxiDatail = false;
+    
     this.taxiPhoto = '';
     this.rawTaxiPhoto = '';
     this.taxiDetail = null;
 
     this.taxiLicensePlate = '';
-    
   }
 
   takePhoto(){
@@ -67,6 +72,8 @@ export class FindTaxiPage {
       //set value
       this.taxiPhoto = 'data:image/jpeg;base64,' + imageData;
       this.rawTaxiPhoto = imageData;
+
+      this.gotTaxiImage = true;
       console.log("Took image");
       
       this.taxiLicensePlate = 'Please wait!';
@@ -78,8 +85,7 @@ export class FindTaxiPage {
         console.log("Got taxiDetail",this.taxiDetail);
         //check that taxi detail is valid
         if(this.checkValidTaxiDetail()){
-          //then upload to firestore
-          this.uploadPicture();
+          this.gotTaxiDatail = true;
         }
       })
       .catch(error =>{
@@ -93,37 +99,44 @@ export class FindTaxiPage {
   checkValidTaxiDetail(){
     if(this.taxiDetail.results.length == 0){
       this.taxiLicensePlate = 'Not found!';
-      console.log("No result from taxiDetail");
+      console.log("Invalid result from taxiDetail");
       return false;
     }else if(this.taxiDetail.results.length > 0){
       this.taxiLicensePlate = this.taxiDetail.results[0].plate;
-      console.log("Get result from taxiDetail");
+      console.log("Valid result from taxiDetail");
       return true;
     }
   }
 
   uploadPicture(){
+    if((!this.gotTaxiImage) || (!this.gotTaxiDatail)){
+      console.log("No image to upload or image did not contain any taxi");
+      this.resetValue();
+      return;
+    }
     //set firestore path >> /images/taxis/<taxi-license-plate-number>/<file-name>.<format>
     let photoPath = "images/taxis/"+this.taxiLicensePlate+"/"+new Date().getTime()+".jpg";
     const storageRef = this.storage.ref(photoPath);
     storageRef.putString(this.taxiPhoto,"data_url")
     .then( () =>{
       console.log("Uploaded image");
-      //TODO - if want to get the URL of the image
-      /*const storageRef = this.storage.ref(this.photoPath);
-      storageRef.getDownloadURL()
-      .then(function(url) {
-        this.photoURL = url;
-        console.log("URL:",url);
-        // Insert url into an <img> tag to "download"
-      }).catch(function(error) {
-        console.log("URL error:",error);
-      });*/
+      //reset data
+      this.resetValue();
     })
     .catch(error => console.log("Error uploading image",error));
   }
 
+  isValidTaxiInfo(){
+    //TODO - find a better way to valid this
+    if(this.taxiLicensePlate && (this.taxiLicensePlate!='Please wait!') && (this.taxiLicensePlate!='Not found!')){
+      return true;
+    }
+  }
+
   goToTaxiDetail(params){
+    //TODO - give user option whether they want to upload image or not
+    this.uploadPicture();
+    
     if (!params) params = {};
     this.navCtrl.push(TaxiDetailPage);
   }
