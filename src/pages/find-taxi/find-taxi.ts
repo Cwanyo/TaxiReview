@@ -20,14 +20,12 @@ import { RestApiProvider } from '../../providers/rest-api/rest-api';
 export class FindTaxiPage {
 
   taxis: Observable<any[]>;
+
   public taxiPhoto: string;
   public rawTaxiPhoto: string;
   public taxiDetail: any;
   
   public taxiLicensePlate: string = '';
-
-  public photoPath: string;
-  public photoURL: string;
 
   storage = firebase.storage();
 
@@ -42,10 +40,18 @@ export class FindTaxiPage {
     console.log("taxis",this.taxis);
   }
 
+  resetValue(){
+    this.taxiPhoto = '';
+    this.rawTaxiPhoto = '';
+    this.taxiDetail = null;
+
+    this.taxiLicensePlate = '';
+    
+  }
+
   takePhoto(){
     //reset input field and pic
-    this.taxiLicensePlate = '';
-    this.taxiPhoto = '';
+    this.resetValue();    
 
     const options: CameraOptions = {
       quality: 50,
@@ -55,15 +61,13 @@ export class FindTaxiPage {
       correctOrientation: true,
       saveToPhotoAlbum: true
     }
-
-    this.photoPath = "images/taxis/"+new Date().getTime()+".jpg";
       
     this.camera.getPicture(options)
     .then((imageData) => {
       //set value
       this.taxiPhoto = 'data:image/jpeg;base64,' + imageData;
       this.rawTaxiPhoto = imageData;
-      console.log("Took imaage");
+      console.log("Took image");
       
       this.taxiLicensePlate = 'Please wait!';
 
@@ -71,12 +75,16 @@ export class FindTaxiPage {
       this.restApiProvider.getLicensePlate(this.rawTaxiPhoto)
       .then(data => {
         this.taxiDetail = data;
-        console.log("Get taxiDetail",this.taxiDetail);
-        this.checkValidTaxiDetail();
+        console.log("Got taxiDetail",this.taxiDetail);
+        //check that taxi detail is valid
+        if(this.checkValidTaxiDetail()){
+          //then upload to firestore
+          this.uploadPicture();
+        }
       })
       .catch(error =>{
-        //TODO - alert user
-        console.log("Error using api",error);
+        //TODO - alert error to user
+        console.log("Error using openalpr api",error);
       });
     })
     .catch(error => console.log("Error taking photo",error));
@@ -86,18 +94,23 @@ export class FindTaxiPage {
     if(this.taxiDetail.results.length == 0){
       this.taxiLicensePlate = 'Not found!';
       console.log("No result from taxiDetail");
+      return false;
     }else if(this.taxiDetail.results.length > 0){
       this.taxiLicensePlate = this.taxiDetail.results[0].plate;
       console.log("Get result from taxiDetail");
+      return true;
     }
   }
 
   uploadPicture(){
-    const storageRef = this.storage.ref(this.photoPath);
+    //set firestore path >> /images/taxis/<taxi-license-plate-number>/<file-name>.<format>
+    let photoPath = "images/taxis/"+this.taxiLicensePlate+"/"+new Date().getTime()+".jpg";
+    const storageRef = this.storage.ref(photoPath);
     storageRef.putString(this.taxiPhoto,"data_url")
     .then( () =>{
       console.log("Uploaded image");
-      const storageRef = this.storage.ref(this.photoPath);
+      //TODO - if want to get the URL of the image
+      /*const storageRef = this.storage.ref(this.photoPath);
       storageRef.getDownloadURL()
       .then(function(url) {
         this.photoURL = url;
@@ -105,9 +118,9 @@ export class FindTaxiPage {
         // Insert url into an <img> tag to "download"
       }).catch(function(error) {
         console.log("URL error:",error);
-      });
+      });*/
     })
-    .catch(error => console.log("Error getting photo URL",error));
+    .catch(error => console.log("Error uploading image",error));
   }
 
   goToTaxiDetail(params){
