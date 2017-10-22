@@ -9,7 +9,7 @@
     </ion-navbar>
 </ion-header>
 <ion-content padding id="page1">
-    <form id="findTaxi-form1">
+    <div id="findTaxi-form1">
         <button id="findTaxi-button1" ion-button color="light" block on-click="takePhoto()">
         <ion-icon name="car"></ion-icon>&nbsp;Take a photo
         </button>
@@ -20,15 +20,8 @@
             <ion-label stacked>
                 Input Plate Number
             </ion-label>
-            <ion-input type="text" placeholder="ทว2434"></ion-input>
+            <ion-input type="text" [(ngModel)]="taxiLicensePlate" placeholder="ทว2434"></ion-input>
         </ion-item>
-        <button id="findTaxi-button7" ion-button color="dark" block on-click="goToTaxiDetail()">Search</button>
-    </form>
-    <!--
-    <ion-list>
-        <ion-item class="text" *ngFor="let taxi of taxis | async">
-            {{taxi | json}}
-        </ion-item>
-    </ion-list>
-    -->
+        <button id="findTaxi-button7" ion-button color="dark" block [disabled]="!isValidTaxiInfo()" on-click="goToTaxiDetail()">Search</button>
+    </div>
 </ion-content>

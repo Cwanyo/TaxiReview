@@ -24,6 +24,10 @@ import { AddReviewPage } from '../pages/add-review/add-review';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { HttpClientModule } from '@angular/common/http';
+
+import { RestApiProvider } from '../providers/rest-api/rest-api';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -40,7 +44,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -57,6 +62,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     SplashScreen,
     AngularFireDatabase,
     Camera,
+    RestApiProvider,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
