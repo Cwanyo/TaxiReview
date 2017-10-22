@@ -33,17 +33,17 @@ The application that allows users to search and check taxi reviews from other us
 
 ### Account Registration 
 - Login with Google or Facebook
-- Verify account via SMS 
 
 ### Find that Taxi
 - Find taxi by typing in the licence plate number
-- Take a photo of taxi and licence plate (will be collected for research purpose)
+- Take taxi photo and licence plate (collected for research purpose)
+- Use [OpenALPR](https://github.com/openalpr/openalpr) library  for license plate recognition
 
-### Create a taxi review
-- Rating according to categories (e.g. service,politeness or cleanness)
+### Create taxi review
+- Give rating according to categories (e.g. service,politeness or cleanness)
 - Comment in text
 
-### View the reviews from other users
+### View reviews from other users
 - Show taxi details
 - Overall rating and comment
 
@@ -52,7 +52,6 @@ The application that allows users to search and check taxi reviews from other us
 Link to our [prototype](https://creator.ionic.io/share/dd7f0f339376)
 
 # Known issues and bugs
-- Authentication problem with real device due to browser authentication is not supported, might have to use native api
 
 # Contributors
 - Chatchawan yoojuie
