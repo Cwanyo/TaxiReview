@@ -55,3 +55,4 @@ Link to our [prototype](https://creator.ionic.io/share/dd7f0f339376)
 
 # Contributors
 - Chatchawan yoojuie
+- Vorapat phorncharroenroj
