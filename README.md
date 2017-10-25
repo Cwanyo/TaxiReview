@@ -4,16 +4,31 @@ This hybrid mobile application is a part of the Hybrid Mobile Development (CS 44
 
 # How to run this project
 
+### How to set up:
+
+Download and install the latest [Node.js](https://nodejs.org/en/). Then, install the Ionic CLI and Cordova:
+
+```bash
+$ npm install -g ionic cordova
+```
+
 ### How to run with the Ionic CLI:
+
+First, clone this repository and install all the required dependencies:
 
 ```bash
 $ git clone https://github.com/Cwanyo/TaxiReview
 $ cd TaxiReview
 $ npm install
+```
+
+After all the dependencies are installed, run the following command to launch the app in the browser:
+
+```bash
 $ ionic serve
 ```
 
-Then, to run it on ios:
+To run it on ios:
 
 ```bash
 $ ionic cordova platform add ios
