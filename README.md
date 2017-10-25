@@ -1,6 +1,6 @@
 # Taxi Review
 
-This hybrid mobile application is a part of the Hybrid Mobile Development (CS 4404) project that created by Assumption University student.
+This hybrid mobile application is a part of the Hybrid Mobile Development (CS 4404) project that created by Assumption University students.
 
 # How to run this project
 
