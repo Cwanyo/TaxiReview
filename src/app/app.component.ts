@@ -9,6 +9,8 @@ import { FindTaxiPage } from '../pages/find-taxi/find-taxi';
 import { RecentViewPage } from '../pages/recent-view/recent-view';
 import { MyReviewPage } from '../pages/my-review/my-review';
 
+import { TabsPage } from './../pages/tabs/tabs';
+
 import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
@@ -16,7 +18,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 })
 export class MyApp {
   @ViewChild(Nav) navCtrl: Nav;
-    rootPage:any = FindTaxiPage;
+    rootPage:any = TabsPage;
 
   user;
 
@@ -55,12 +57,15 @@ export class MyApp {
   }goToFindTaxi(params){
     if (!params) params = {};
     this.navCtrl.setRoot(FindTaxiPage);
+    this.navCtrl.push(TabsPage,{index: "0"})
   }goToRecentView(params){
     if (!params) params = {};
     this.navCtrl.setRoot(RecentViewPage);
+    this.navCtrl.push(TabsPage,{index: "1"})
   }goToMyReview(params){
     if (!params) params = {};
     this.navCtrl.setRoot(MyReviewPage);
+    this.navCtrl.push(TabsPage,{index: "2"})
   }
   
 }

@@ -12,8 +12,8 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
-$SIDEMENU_TOP: #666666;
-$SIDEMENU_BOTTOM: #000000;
+$SIDEMENU_TOP:#3E5E75;
+$SIDEMENU_BOTTOM: #3E5E75;
 $SIDEMENU_TRANSPARENCY: rgba(255, 255, 255, 0.4);
 .side-menu-item {
     background: none;
@@ -49,4 +49,135 @@ $SIDEMENU_TRANSPARENCY: rgba(255, 255, 255, 0.4);
         -moz-box-shadow: 0px 0px 142px -37px rgba(0, 0, 0, 0.75);
         box-shadow: 0px 0px 142px -37px rgba(0, 0, 0, 0.75);
     }
+}
+
+//add
+.div-color-commend {
+    background-color: #F1F1E9;
+    border-radius: 10px;
+}
+
+.div-color-list {
+    background-color: #F1F1E9;
+    border-radius: 10px;
+    padding: 1px;
+}
+
+.div-color-commend-header {
+    background-color: rgb(172, 172, 172);
+}
+
+.div-color {
+    background-color: #F1F1E9;
+    border-radius: 10px;
+    padding-bottom: 30px;
+}
+
+.background-color {
+    background-color: #3E5E75;
+}
+
+.button-general {
+    background-color: #8ECAA8;
+    margin-top: 10px;
+    margin-left: 5%;
+    width: 90%;
+    height: 40px;
+    border-radius: 7px;
+    color: whitesmoke;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    position: center;
+}
+
+.button-general:hover {
+    background-color: #BA3E7C;
+    color: white;
+}
+
+.rating-label {
+    color: #BA3E7C;
+    font-size: 20px;
+    padding-left: 3%;
+}
+
+.text-modify {
+    color: whitesmoke;
+    margin-top: 15px;
+    text-align: center;
+}
+
+// .div-color {
+//     background-color:#F1F1E9;
+//     border-radius: 10px;
+//     padding-bottom: 20px;
+// }
+// .background-color{
+//     background-color: #3E5E75;
+// }
+.button-google {
+    background-color: #E8362D;
+    margin-top: 5%;
+    margin-left: 5%;
+    width: 90%;
+    height: 40px;
+    border-radius: 7px;
+    color: whitesmoke;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    position: center;
+}
+
+.button-facebook {
+    background-color: #387BE4;
+    margin-top: 5%;
+    margin-left: 5%;
+    width: 90%;
+    height: 40px;
+    border-radius: 7px;
+    color: whitesmoke;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    position: center;
+}
+
+.button-logout {
+    background-color: #ff0000;
+    margin-top: 5%;
+    margin-left: 5%;
+    width: 90%;
+    height: 40px;
+    border-radius: 7px;
+    color: #ffffff;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    position: center;
+}
+
+.button-google:hover {
+    background-color: #8ECAA8;
+    color: white;
+}
+
+.button-facebook:hover {
+    background-color: #8ECAA8;
+    color: white;
+}
+
+.button-logout:hover {
+    background-color: #650000;
+    color: #ffffff;
+}
+
+.div-list-color {
+    background-color: #F1F1E9;
+    border-radius: 10px;
+    padding-bottom: 3px;
+}
+
+// .background-color{
+//     background-color: #3E5E75;
+// }
+.listitem-color {
+    background-color: #F1F1E9;
 }

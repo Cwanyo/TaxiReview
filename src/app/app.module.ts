@@ -21,6 +21,8 @@ import { MyReviewPage } from '../pages/my-review/my-review';
 import { TaxiDetailPage } from '../pages/taxi-detail/taxi-detail';
 import { AddReviewPage } from '../pages/add-review/add-review';
 
+import { TabsPage } from './../pages/tabs/tabs';
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -36,7 +38,8 @@ import { RestApiProvider } from '../providers/rest-api/rest-api';
     RecentViewPage,
     MyReviewPage,
     TaxiDetailPage,
-    AddReviewPage
+    AddReviewPage,
+    TabsPage
   ],
   imports: [
     BrowserModule,
@@ -55,7 +58,8 @@ import { RestApiProvider } from '../providers/rest-api/rest-api';
     RecentViewPage,
     MyReviewPage,
     TaxiDetailPage,
-    AddReviewPage
+    AddReviewPage,
+    TabsPage
   ],
   providers: [
     StatusBar,

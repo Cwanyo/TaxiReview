@@ -1,30 +1,35 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
+    <ion-navbar>
+        <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>
-      Recent View
-    </ion-title>
-  </ion-navbar>
+        <ion-title>
+            Recent View
+        </ion-title>
+    </ion-navbar>
 </ion-header>
-<ion-content padding id="page2">
-  <ion-list id="recentView-list2">
-    <ion-item color="none" on-click="goToTaxiDetail()" id="recentView-list-item7">
-      <ion-avatar item-left>
-        <img src="assets/img/4RFpJh1AQ62fhqDcjsju_taxi.jpg" />
-      </ion-avatar>
-      <h2>
-        ทว-2434
-      </h2>
-    </ion-item>
-    <ion-item color="none" id="recentView-list-item10">
-      <ion-avatar item-left>
-        <img src="assets/img/DrdWoIGlRV2cRkEY7jcu_taxi1.jpg" />
-      </ion-avatar>
-      <h2>
-        สน-1412
-      </h2>
-    </ion-item>
-  </ion-list>
+
+<ion-content padding id="page2" class="background-color">
+
+    <div class="div-color-list">
+        <ion-list id="recentView-list2" style="margin-top:2%">
+            <ion-item class="listitem-color" on-click="goToTaxiDetail()" id="recentView-list-item7">
+                <ion-avatar item-left>
+                    <img src="assets/img/4RFpJh1AQ62fhqDcjsju_taxi.jpg" />
+                </ion-avatar>
+                <h2>
+                    ทว-2434
+                </h2>
+            </ion-item>
+            <ion-item class="listitem-color" id="recentView-list-item10">
+                <ion-avatar item-left>
+                    <img src="assets/img/DrdWoIGlRV2cRkEY7jcu_taxi1.jpg" />
+                </ion-avatar>
+                <h2>
+                    สน-1412
+                </h2>
+            </ion-item>
+        </ion-list>
+    </div>
+
 </ion-content>

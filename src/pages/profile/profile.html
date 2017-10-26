@@ -8,51 +8,58 @@
         </ion-title>
     </ion-navbar>
 </ion-header>
-<ion-content padding id="page4">
-    <div id="profile-info" *ngIf="user != null">
-        <div>
-            <img src="{{user.photoURL}}" style="display:block;width:50%;height:auto;margin-left:auto;margin-right:auto;" />
+
+<ion-content padding id="page4" class="background-color">
+
+    <div class="div-color" style="border-radius:10px;padding-bottom:10%;width:95%;margin-left:3%">
+
+        <div class="spacer" style="height:20px;" id="profile-spacer4"></div>
+        <div id="profile-info" *ngIf="user != null">
+            <div>
+                <img src="{{user.photoURL}}" style="display:block;width:50%;height:auto;margin-left:auto;margin-right:auto;" />
+            </div>
+            <div id="profile-form2">
+                <ion-list id="profile-list4">
+                    <ion-item id="profile-input6" style="background-color:#F1F1E9;">
+                        <ion-label stacked>
+                            Name
+                        </ion-label>
+                        <ion-input type="text" value="{{user.displayName}}"></ion-input>
+                    </ion-item>
+                    <ion-item id="profile-input7" style="background-color:#F1F1E9;">
+                        <ion-label stacked>
+                            Moblie Number
+                        </ion-label>
+                        <ion-input type="tel" value="{{user.phoneNumber}}"></ion-input>
+                    </ion-item>
+                    <ion-item id="profile-input8" style="background-color:#F1F1E9;">
+                        <ion-label stacked>
+                            Email Address
+                        </ion-label>
+                        <ion-input type="email" value="{{user.email}}" readonly="true"></ion-input>
+                    </ion-item>
+                </ion-list>
+            </div>
         </div>
-        <form id="profile-form2">
-            <ion-list id="profile-list4">
-                <ion-item id="profile-input6">
-                    <ion-label stacked>
-                        Name
-                    </ion-label>
-                    <ion-input type="text" value="{{user.displayName}}"></ion-input>
-                </ion-item>
-                <ion-item id="profile-input7">
-                    <ion-label stacked>
-                        Moblie Number
-                    </ion-label>
-                    <ion-input type="tel" value="{{user.phoneNumber}}"></ion-input>
-                </ion-item>
-                <ion-item id="profile-input8">
-                    <ion-label stacked>
-                        Email Address
-                    </ion-label>
-                    <ion-input type="email" value="{{user.email}}" readonly="true"></ion-input>
-                </ion-item>
-            </ion-list>
-        </form>
-    </div>
 
-    <div class="spacer" style="height:20px;" id="profile-spacer4"></div>
+        <div class="spacer" style="height:20px;" id="profile-spacer4"></div>
 
-    <div id="profile-login" *ngIf="user == null">
-        <button ion-button color="blue" block (click)="login('facebook')">
-            <ion-icon name="logo-facebook"></ion-icon>&nbsp;Log in with Facebook
-        </button>
-        <h6 style="color:#696969;text-align:center;margin:0 0 0 0;">- OR -</h6>
-        <button ion-button color="danger" block (click)="login('google')">
-            <ion-icon name="logo-google"></ion-icon>&nbsp;Log in with Google
-        </button>
-    </div>
+        <div id="profile-login" *ngIf="user == null">
+            <button class="button-facebook" block (click)="login('facebook')">
+                <ion-icon name="logo-facebook"></ion-icon>&nbsp;Log in with Facebook
+            </button>
 
-    <div id="profile-logout" *ngIf="user != null">
-        <button id="profile-button3" ion-button color="light" (click)="logout()" block style="font-weight:500;color:#FF0000;">
-            <ion-icon name="log-out"></ion-icon>&nbsp;LOG OUT
-        </button>
+            <button class="button-google" (click)="login('google')">
+                <ion-icon name="logo-google"></ion-icon>&nbsp;Log in with Google
+            </button>
+        </div>
+
+        <div id="profile-logout" *ngIf="user != null">
+            <button class="button-logout" (click)="logout()">
+                <ion-icon name="log-out"></ion-icon>&nbsp;LOG OUT
+            </button>
+        </div>
+
     </div>
 
 </ion-content>

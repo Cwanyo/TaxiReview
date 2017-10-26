@@ -1,27 +1,30 @@
 <ion-header>
     <ion-navbar>
         <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
+            <ion-icon name="menu"></ion-icon>
+        </button>
         <ion-title>
             Find Taxi
         </ion-title>
     </ion-navbar>
 </ion-header>
-<ion-content padding id="page1">
-    <div id="findTaxi-form1">
-        <button id="findTaxi-button1" ion-button color="light" block on-click="takePhoto()">
-        <ion-icon name="car"></ion-icon>&nbsp;Take a photo
-        </button>
+
+<ion-content padding id="page1" class="background-color">
+
+    <div class="div-color">
         <ion-card *ngIf="taxiPhoto">
             <img [src]="taxiPhoto" />
         </ion-card>
-        <ion-item id="findTaxi-input3">
-            <ion-label stacked>
-                Input Plate Number
-            </ion-label>
+        <ion-item id="findTaxi-input3" style="width:90%;margin-left:5%;background-color:#F1F1E9;font-size:30px">
+            <ion-label stacked>Input Plate Number</ion-label>
             <ion-input type="text" [(ngModel)]="taxiLicensePlate" placeholder="ทว2434"></ion-input>
         </ion-item>
-        <button id="findTaxi-button7" ion-button color="dark" block [disabled]="!isValidTaxiInfo()" on-click="goToTaxiDetail()">Search</button>
+        <button class="button-general" id="findTaxi-button1" ion-button color="light" block on-click="takePhoto()">
+            <ion-icon name="camera"></ion-icon>&nbsp;Take a photo
+        </button>
+        <button class="button-general" id="findTaxi-button7" [disabled]="!isValidTaxiInfo()" on-click="goToTaxiDetail()">
+            <ion-icon name="search"></ion-icon>&nbsp;Search
+        </button>
+
     </div>
 </ion-content>

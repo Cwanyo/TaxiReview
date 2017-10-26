@@ -1,70 +1,74 @@
 <ion-header>
     <ion-navbar>
         <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
+            <ion-icon name="menu"></ion-icon>
+        </button>
         <ion-title>
             Add Review
         </ion-title>
     </ion-navbar>
 </ion-header>
-<ion-content padding id="page6">
-    <h3 id="addReview-heading6" style="color:#808080;text-align:center;">
-        Input your feedback
-    </h3>
-    <form id="addReview-form4">
-        <ion-list id="addReview-list5">
-            <ion-item color="none" id="addReview-list-item22">
-                Service (การบริการ)
-            </ion-item>
-            <ion-item id="addReview-range1">
-                <ion-range min="1" max="5" step="1" color="positive" value="3">
-                    <ion-label range-left>
-                        Range
-                    </ion-label>
-                </ion-range>
-            </ion-item>
-        </ion-list>
-        <div class="spacer" style="height:5px;" id="addReview-spacer7"></div>
-        <ion-list id="addReview-list6">
-            <ion-item color="none" id="addReview-list-item25">
-                Politeness (มารยาทของคนขับรถ)
-            </ion-item>
-            <ion-item id="addReview-range2">
-                <ion-range min="1" max="5" step="1" color="positive" value="3">
-                    <ion-label range-left>
-                        Range
-                    </ion-label>
-                </ion-range>
-            </ion-item>
-        </ion-list>
-        <div class="spacer" style="height:5px;" id="addReview-spacer8"></div>
-        <ion-list id="addReview-list7">
-            <ion-item color="none" id="addReview-list-item26">
-                Cleanness (ความสะอาดของรถยนต์)
-            </ion-item>
-            <ion-item id="addReview-range3">
-                <ion-range min="1" max="5" step="1" color="positive" value="3">
-                    <ion-label range-left>
-                        Range
-                    </ion-label>
-                </ion-range>
-            </ion-item>
-        </ion-list>
-        <div class="spacer" style="height:5px;" id="addReview-spacer9"></div>
-        <ion-list id="addReview-list8">
-            <ion-item color="none" id="addReview-list-item28">
-                Comment (ความคิดเห็น)
-            </ion-item>
-            <ion-item id="addReview-textarea1">
-                <ion-label>
-                    text
-                </ion-label>
-                <ion-textarea placeholder=""></ion-textarea>
-            </ion-item>
-        </ion-list>
-        <button id="addReview-button6" ion-button color="dark" block on-click="submitReview()">
-      Submit
-    </button>
-    </form>
+
+
+<ion-content padding id="page6" class="background-color">
+
+    <div class="div-color">
+        <div class="spacer " style="height:20px;" id="findTaxi-spacer3"></div>
+
+        <ion-item style="width:90%;margin-left:5%;margin-top:20px;border-radius:10px;background-color:#8ECAA8">
+            <ion-label>
+                <h3 style="font-size:20px;color:whitesmoke">
+                    Service
+                </h3>
+            </ion-label>
+            <ion-select [(ngModel)]="Service">
+                <ion-option value="5">5</ion-option>
+                <ion-option value="4">4</ion-option>
+                <ion-option value="3">3</ion-option>
+                <ion-option value="2">2</ion-option>
+                <ion-option value="1">1</ion-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item style="width:90%;margin-left:5%;margin-top:20px;border-radius:10px;background-color:#8ECAA8">
+            <ion-label>
+                <h3 style="font-size:20px;color:whitesmoke">
+                    Politeness
+                </h3>
+            </ion-label>
+            <ion-select [(ngModel)]="Politeness">
+                <ion-option value="5">5</ion-option>
+                <ion-option value="4">4</ion-option>
+                <ion-option value="3">3</ion-option>
+                <ion-option value="2">2</ion-option>
+                <ion-option value="1">1</ion-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item style="width:90%;margin-left:5%;margin-top:20px;border-radius:10px;background-color:#8ECAA8">
+            <ion-label>
+                <h3 style="font-size:20px;color:whitesmoke">
+                    Cleanness
+                </h3>
+            </ion-label>
+            <ion-select [(ngModel)]="Cleanness">
+                <ion-option value="5">5</ion-option>
+                <ion-option value="4">4</ion-option>
+                <ion-option value="3">3</ion-option>
+                <ion-option value="2">2</ion-option>
+                <ion-option value="1">1</ion-option>
+            </ion-select>
+        </ion-item>
+
+
+        <h3 class="rating-label" style="margin-left:2.5%;">
+            Comment
+        </h3>
+        <ion-textarea style="margin-left:5%;" placeholder="Give feedback"></ion-textarea>
+
+        <button class="button-general" style="background-color:#BA3E7C" on-click="submitReview()">
+            Submit
+        </button>
+    </div>
+
 </ion-content>
