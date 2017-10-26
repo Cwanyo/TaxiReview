@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, Platform } from 'ionic-angular';
+
+import { AngularFireDatabase } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
 
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
@@ -11,11 +14,13 @@ import * as firebase from 'firebase/app';
 export class ProfilePage {
 
   //TODO - make it as object so google and facebook can share the same object
-  user;
-
+  user: firebase.User
+  
   constructor(
     public navCtrl: NavController,
-    private afAuth: AngularFireAuth
+    private afAuth: AngularFireAuth,
+    private afDB:AngularFireDatabase,
+    private platform: Platform 
   ) {
     afAuth.authState.subscribe(user => {
       if (!user) {
@@ -23,6 +28,26 @@ export class ProfilePage {
         return;
       }
       this.user = user;
+      this.createUser();
+    });
+  }
+
+  createUser(){
+    const dbUserRef = this.afDB.object('Users/'+this.user.uid);
+    let userDb = dbUserRef.valueChanges();
+    let sub = userDb.subscribe(userData => {
+      if(userData !== null){
+        console.log("User already exist");
+      }else{
+        console.log("User not exist");
+
+        var Email = this.user.email;
+        var Name = this.user.displayName;
+
+        dbUserRef.set({Email,Name});
+        console.log("Added new user to firedatabase");
+      }
+      sub.unsubscribe();
     });
   }
 
@@ -38,12 +63,19 @@ export class ProfilePage {
         break;
     }
 
-    this.afAuth.auth.signInWithRedirect(signInProvider)
-    .then(() => {
-      this.afAuth.auth.getRedirectResult()
+    if (this.platform.is('cordova')){
+      this.afAuth.auth.signInWithRedirect(signInProvider)
+      .then(() => {
+        this.afAuth.auth.getRedirectResult()
+        .then(result => console.log("Logged-in with "+provider,result))
+        .catch(error => console.log("Error Sing-in with "+provider,error));
+      });
+    }else{
+      this.afAuth.auth.signInWithPopup(signInProvider)
       .then(result => console.log("Logged-in with "+provider,result))
       .catch(error => console.log("Error Sing-in with "+provider,error));
-    });
+    }
+    
 
   }
 
