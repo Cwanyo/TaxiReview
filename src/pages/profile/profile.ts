@@ -22,7 +22,11 @@ export class ProfilePage {
     private afDB:AngularFireDatabase,
     private platform: Platform 
   ) {
-    afAuth.authState.subscribe(user => {
+    this.userAuth();
+  }
+  
+  userAuth(){
+    this.afAuth.authState.subscribe(user => {
       if (!user) {
         this.user = null;
         return;
