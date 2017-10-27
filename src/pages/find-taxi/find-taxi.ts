@@ -5,7 +5,6 @@ import { TaxiDetailPage } from '../taxi-detail/taxi-detail';
 
 //Fire
 import { AngularFireDatabase } from 'angularfire2/database';
-import { Observable } from 'rxjs/Observable';
 
 import firebase from 'firebase';
 
@@ -19,8 +18,6 @@ import { RestApiProvider } from '../../providers/rest-api/rest-api';
 })
 export class FindTaxiPage {
 
-  taxis: Observable<any[]>;
-
   public gotTaxiImage: boolean = false;
   public gotTaxiDatail: boolean = false;
 
@@ -28,6 +25,7 @@ export class FindTaxiPage {
   public rawTaxiPhoto: string;
   public taxiDetail: any;
 
+  public photoPath: string;
   public taxiPhotoURL: string;
 
   public taxiLicensePlate: string = '';
@@ -40,9 +38,6 @@ export class FindTaxiPage {
     private camera: Camera,
     public restApiProvider: RestApiProvider
   ) {
-
-    this.taxis = this.afDB.list('Taxis').valueChanges();
-    console.log("taxis",this.taxis);
   }
 
   resetValue(){
@@ -119,25 +114,27 @@ export class FindTaxiPage {
       return;
     }
     //set firestore path >> /images/taxis/<taxi-license-plate-number>/<file-name>.<format>
-    let photoPath = "images/taxis/"+this.taxiLicensePlate+"/"+new Date().getTime()+".jpg";
-    const storageRef = this.storage.ref(photoPath);
+    this.photoPath = "images/taxis/"+this.taxiLicensePlate+"/"+new Date().getTime()+".jpg";
+    const storageRef = this.storage.ref(this.photoPath);
     storageRef.putString(this.taxiPhoto,"data_url")
     .then( () =>{
       console.log("Uploaded image");
-      let tUrl = '';
-      //TODO - if want to get the URL of the image
-      storageRef.getDownloadURL()
-      .then(function(url) {
-        tUrl = url;
-        console.log("Get URL:",tUrl);
-      }).catch(function(error) {
-        console.log("Error getting URL:",error);
-      });
-      this.taxiPhotoURL = tUrl;
+      //get picture URL
+      this.getPictureURL();
       //reset data
       this.resetValue();
     })
     .catch(error => console.log("Error uploading image",error));
+  }
+
+  getPictureURL(){
+    const storageRef = this.storage.ref(this.photoPath);
+    storageRef.getDownloadURL()
+    .then(url =>{
+      this.taxiPhotoURL = url;
+      console.log("Got URL",this.taxiPhotoURL);
+    })
+    .catch(error=> console.log("Error getting URL:",error));
   }
 
   isValidTaxiInfo(){
