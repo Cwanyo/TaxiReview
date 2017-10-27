@@ -28,6 +28,8 @@ export class FindTaxiPage {
   public rawTaxiPhoto: string;
   public taxiDetail: any;
 
+  public taxiPhotoURL: string;
+
   public taxiLicensePlate: string = '';
 
   storage = firebase.storage();
@@ -50,6 +52,8 @@ export class FindTaxiPage {
     this.taxiPhoto = '';
     this.rawTaxiPhoto = '';
     this.taxiDetail = null;
+
+    this.taxiPhotoURL = '';
 
     this.taxiLicensePlate = '';
   }
@@ -120,6 +124,16 @@ export class FindTaxiPage {
     storageRef.putString(this.taxiPhoto,"data_url")
     .then( () =>{
       console.log("Uploaded image");
+      let tUrl = '';
+      //TODO - if want to get the URL of the image
+      storageRef.getDownloadURL()
+      .then(function(url) {
+        tUrl = url;
+        console.log("Get URL:",tUrl);
+      }).catch(function(error) {
+        console.log("Error getting URL:",error);
+      });
+      this.taxiPhotoURL = tUrl;
       //reset data
       this.resetValue();
     })
@@ -138,7 +152,7 @@ export class FindTaxiPage {
     this.uploadPicture();
     
     if (!params) params = {};
-    this.navCtrl.push(TaxiDetailPage);
+    this.navCtrl.push(TaxiDetailPage,{taxiLicensePlate: this.taxiLicensePlate});
   }
 
 }

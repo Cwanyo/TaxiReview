@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 import { AddReviewPage } from '../add-review/add-review';
 
@@ -9,8 +9,15 @@ import { AddReviewPage } from '../add-review/add-review';
 })
 export class TaxiDetailPage {
 
-  constructor(public navCtrl: NavController) {
+  public taxiLicensePlate: string = '';
+
+  constructor(
+    public navCtrl: NavController,
+    navParams: NavParams
+  ) {
+    this.taxiLicensePlate = navParams.get('taxiLicensePlate');
   }
+
   goToAddReview(params){
     if (!params) params = {};
     this.navCtrl.push(AddReviewPage);
