@@ -142,20 +142,22 @@ export class FindTaxiPage {
     let dbTaxi = dbTaxiRef.valueChanges();
     let sub = dbTaxi.subscribe(taxiData => {
 
-      let turl = this.taxiPhotoURL;
+      var im = {};
+      im[''+new Date().getTime()] = this.taxiPhotoURL;
+
       if(taxiData !== null){
         console.log("Taxi already exist");
-        //TODO - change data structure !!
-        //const dbTaxiImageRef = this.afDB.object('Taxis/'+this.taxiLicensePlate+'/Images/');
 
-        //let t = ""+new Date().getTime();
+        const dbTaxiImageRef = this.afDB.object('Taxis/'+this.taxiLicensePlate+'/Images/');
+
+        dbTaxiImageRef.update(im);
 
         console.log("Append new Image url to taxi in firedatabase");
       }else{
         console.log("Taxi not exist");
-        //TODO - change data structure !!
+
         dbTaxiRef.set({
-          'Images': [turl],
+          'Images': im,
           'OverrallRating': {
               "Cleanness": 0,
               "Politeness": 0,
