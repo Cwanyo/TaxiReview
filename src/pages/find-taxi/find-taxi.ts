@@ -48,6 +48,7 @@ export class FindTaxiPage {
     this.rawTaxiPhoto = '';
     this.taxiDetail = null;
 
+    this.photoPath = '';
     this.taxiPhotoURL = '';
 
     this.taxiLicensePlate = '';
@@ -107,7 +108,7 @@ export class FindTaxiPage {
     }
   }
 
-  uploadPicture(){
+  uploadImage(){
     if((!this.gotTaxiImage) || (!this.gotTaxiDatail)){
       console.log("No image to upload or image did not contain any taxi");
       this.resetValue();
@@ -117,24 +118,57 @@ export class FindTaxiPage {
     this.photoPath = "images/taxis/"+this.taxiLicensePlate+"/"+new Date().getTime()+".jpg";
     const storageRef = this.storage.ref(this.photoPath);
     storageRef.putString(this.taxiPhoto,"data_url")
-    .then( () =>{
+    .then(() =>{
       console.log("Uploaded image");
-      //get picture URL
-      this.getPictureURL();
-      //reset data
-      this.resetValue();
     })
-    .catch(error => console.log("Error uploading image",error));
+    .then(() => {
+      //get image URL
+      const storageRef = this.storage.ref(this.photoPath);
+      storageRef.getDownloadURL()
+      .then(url =>{
+        this.taxiPhotoURL = url;
+        console.log("Got image URL",this.taxiPhotoURL);
+      })
+      .then(() => {
+        //add image to taxi in firedatabase
+        this.addTaxiImage();
+      });
+    })
+    .catch(error => console.log("Error",error));
   }
 
-  getPictureURL(){
-    const storageRef = this.storage.ref(this.photoPath);
-    storageRef.getDownloadURL()
-    .then(url =>{
-      this.taxiPhotoURL = url;
-      console.log("Got URL",this.taxiPhotoURL);
-    })
-    .catch(error=> console.log("Error getting URL:",error));
+  addTaxiImage(){
+    const dbTaxiRef = this.afDB.object('Taxis/'+this.taxiLicensePlate);
+    let dbTaxi = dbTaxiRef.valueChanges();
+    let sub = dbTaxi.subscribe(taxiData => {
+
+      let turl = this.taxiPhotoURL;
+      if(taxiData !== null){
+        console.log("Taxi already exist");
+        //TODO - change data structure !!
+        //const dbTaxiImageRef = this.afDB.object('Taxis/'+this.taxiLicensePlate+'/Images/');
+
+        //let t = ""+new Date().getTime();
+
+        console.log("Append new Image url to taxi in firedatabase");
+      }else{
+        console.log("Taxi not exist");
+        //TODO - change data structure !!
+        dbTaxiRef.set({
+          'Images': [turl],
+          'OverrallRating': {
+              "Cleanness": 0,
+              "Politeness": 0,
+              "Service": 0
+          }
+        });
+
+        console.log("Create and add new Image url to taxi in firedatabase");
+      }
+      sub.unsubscribe();
+      //reset
+      this.resetValue();
+    });
   }
 
   isValidTaxiInfo(){
@@ -145,11 +179,13 @@ export class FindTaxiPage {
   }
 
   goToTaxiDetail(params){
+    //store data before reset
+    let tlp = this.taxiLicensePlate;
     //TODO - give user option whether they want to upload image or not
-    this.uploadPicture();
+    this.uploadImage();
     
     if (!params) params = {};
-    this.navCtrl.push(TaxiDetailPage,{taxiLicensePlate: this.taxiLicensePlate});
+    this.navCtrl.push(TaxiDetailPage,{taxiLicensePlate: tlp});
   }
 
 }

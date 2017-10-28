@@ -3,6 +3,9 @@ import { NavController, NavParams } from 'ionic-angular';
 
 import { AddReviewPage } from '../add-review/add-review';
 
+//Fire
+import { AngularFireDatabase } from 'angularfire2/database';
+
 @Component({
   selector: 'page-taxi-detail',
   templateUrl: 'taxi-detail.html'
@@ -13,6 +16,7 @@ export class TaxiDetailPage {
 
   constructor(
     public navCtrl: NavController,
+    private afDB:AngularFireDatabase,
     navParams: NavParams
   ) {
     this.taxiLicensePlate = navParams.get('taxiLicensePlate');
