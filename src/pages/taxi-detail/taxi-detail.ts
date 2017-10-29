@@ -20,7 +20,10 @@ export class TaxiDetailPage {
   public taxiLicensePlate: string = '';
 
   taxiReviews: Observable<any[]>;
-  reviewExist: boolean = false;
+  taxiImages: Observable<any[]>;
+  
+  taxiReviewExist: boolean = false;
+  taxiImagesExist: boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -32,15 +35,32 @@ export class TaxiDetailPage {
   }
 
   getTaxiReviews(){
-    this.taxiReviews = this.afDB.list('Taxis/'+this.taxiLicensePlate+'/UserReviews').valueChanges();
-    //this.taxiReviews = this.afDB.list('Taxis/'+this.taxiLicensePlate+'/UserReviews', ref=> ref.orderByKey().limitToFirst(1)).valueChanges();
+    //get last new 20 reviews
+    this.taxiReviews = this.afDB.list('Taxis/'+this.taxiLicensePlate+'/UserReviews', ref=> ref.limitToLast(20)).valueChanges();
+    //get lat new 5 images
+    this.taxiImages = this.afDB.list('Taxis/'+this.taxiLicensePlate+'/Images', ref => ref.limitToLast(5)).valueChanges();
 
-    //**
-    let sub = this.taxiReviews.subscribe(taxiData => {
+    let subImages = this.taxiImages.subscribe(imagesData => {
+      if(imagesData.length == 0){
+        console.log("Taxi image not exist");
+        this.taxiImagesExist = false;
+      }else{
+        console.log("Taxi image exist");
+        this.taxiImagesExist = true;
+      }
+      subImages.unsubscribe();
+    });
 
+    let subReviews = this.taxiReviews.subscribe(taxiData => {
+      if(taxiData.length == 0){
+        console.log("Taxi review not exist");
+        this.taxiReviewExist = false;
+      }else{
+        console.log("Taxi review exist");
+        this.taxiReviewExist = true;
+      }
       //Get user Data
       taxiData.forEach( r => {
-        this.reviewExist = true;
         //Get user name
         console.log("Get user name");
         let subName = this.afDB.object('Users/'+r.UserId+'/Name').valueChanges().subscribe(userData => {
@@ -54,19 +74,19 @@ export class TaxiDetailPage {
         });
         //Get user picture
         console.log("Get user pic");
-        let subPic = this.afDB.object('Users/'+r.UserId+'/Photo').valueChanges().subscribe(userData => {
+        let subPic = this.afDB.object('Users/'+r.UserId+'/Image').valueChanges().subscribe(userData => {
           if(userData !== null){
-            console.log("User photo exist");
+            console.log("User image exist");
             this.usersPic[r.UserId] = userData;
           }else{
-            console.log("User photo not exist");
+            console.log("User image not exist");
           }
           subPic.unsubscribe();
         });
       });
-      //--
-      sub.unsubscribe();
+      subReviews.unsubscribe();
     });
+
   }
 
   goToAddReview(params){
