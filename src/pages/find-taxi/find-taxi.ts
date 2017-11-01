@@ -141,28 +141,25 @@ export class FindTaxiPage {
     let dbTaxi = dbTaxiRef.valueChanges();
     let sub = dbTaxi.subscribe(taxiData => {
 
-      let im = {};
-      im[''+new Date().getTime()] = this.taxiPhotoURL;
+      const dbTaxiImageRef = this.afDB.list('Taxis/'+this.taxiLicensePlate+'/Images/');
 
-      if(taxiData == null){
-        console.log("Taxi not exist");
-        
-        dbTaxiRef.set({'Images': im});
+        if(taxiData == null){
+          console.log("Taxi not exist");
+          
+          dbTaxiImageRef.set(''+new Date().getTime(),this.taxiPhotoURL);
 
-        console.log("Create and add new Image url to taxi in firedatabase");
-      }else{
-        console.log("Taxi already exist");
-        
-        const dbTaxiImageRef = this.afDB.object('Taxis/'+this.taxiLicensePlate+'/Images/');
+          console.log("Create and add new Image url to taxi in firedatabase");
+        }else{
+          console.log("Taxi already exist");
 
-        dbTaxiImageRef.update(im);
+          dbTaxiImageRef.set(''+new Date().getTime(),this.taxiPhotoURL);
 
-        console.log("Append new Image url to taxi in firedatabase");
-      }
-     
-      sub.unsubscribe();
-      //reset
-      this.resetValue();
+          console.log("Append new Image url to taxi in firedatabase");
+        }
+
+        sub.unsubscribe();
+        //reset
+        this.resetValue();
     });
   }
 
