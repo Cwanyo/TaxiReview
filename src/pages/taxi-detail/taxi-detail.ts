@@ -15,15 +15,17 @@ import { Observable } from 'rxjs/Observable';
 })
 export class TaxiDetailPage {
 
-  usersName = {};
-  usersPic = {};
   public taxiLicensePlate: string = '';
 
-  taxiReviews: Observable<any[]>;
-  taxiImages: Observable<any[]>;
+  private usersName = {};
+  private usersPic = {};
+  public taxiReviews: Observable<any[]>;
+  public taxiImages: Observable<any[]>;
+  public taxiOverallRating: Observable<any[]>;
   
-  taxiReviewExist: boolean = false;
-  taxiImagesExist: boolean = false;
+  private taxiReviewExist: boolean = false;
+  private taxiImagesExist: boolean = false;
+  private taxiOverallRatingExist: boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -32,15 +34,31 @@ export class TaxiDetailPage {
   ) {
     this.taxiLicensePlate = navParams.get('taxiLicensePlate');
     this.getTaxiReviews();
+    this.getTaxiImages();
+    this.getOverallRating();
   }
 
-  getTaxiReviews(){
-    //get last new 20 reviews
-    this.taxiReviews = this.afDB.list('Taxis/'+this.taxiLicensePlate+'/UserReviews', ref=> ref.limitToLast(20)).valueChanges();
-    //get lat new 5 images
-    this.taxiImages = this.afDB.list('Taxis/'+this.taxiLicensePlate+'/Images', ref => ref.limitToLast(5)).valueChanges();
+  getOverallRating(){
+    //get taxi rating
+    this.taxiOverallRating = this.afDB.object('Taxis/'+this.taxiLicensePlate+'/OverallRating').valueChanges();
 
-    let subImages = this.taxiImages.subscribe(imagesData => {
+    let subOR = this.taxiOverallRating.subscribe(orData => {
+      if(orData == null){
+        console.log("orData not exist");
+        this.taxiOverallRatingExist = false;
+      }else{
+        console.log("orData exist");
+        this.taxiOverallRatingExist = true;
+      }
+      subOR.unsubscribe();
+    });
+  }
+
+  getTaxiImages(){
+    //get last new 5 images
+    this.taxiImages = this.afDB.list('Taxis/'+this.taxiLicensePlate+'/Images', ref => ref.limitToLast(5)).valueChanges();
+    
+    this.taxiImages.subscribe(imagesData => {
       if(imagesData.length == 0){
         console.log("Taxi image not exist");
         this.taxiImagesExist = false;
@@ -48,11 +66,15 @@ export class TaxiDetailPage {
         console.log("Taxi image exist");
         this.taxiImagesExist = true;
       }
-      subImages.unsubscribe();
     });
+  }
 
-    let subReviews = this.taxiReviews.subscribe(taxiData => {
-      if(taxiData.length == 0){
+  getTaxiReviews(){
+    //get last new 20 reviews
+    this.taxiReviews = this.afDB.list('Taxis/'+this.taxiLicensePlate+'/UserReviews', ref=> ref.limitToLast(20)).valueChanges();
+
+    this.taxiReviews.subscribe(taxiReview => {
+      if(taxiReview.length == 0){
         console.log("Taxi review not exist");
         this.taxiReviewExist = false;
       }else{
@@ -60,7 +82,7 @@ export class TaxiDetailPage {
         this.taxiReviewExist = true;
       }
       //Get user Data
-      taxiData.forEach( r => {
+      taxiReview.forEach( r => {
         //Get user name
         console.log("Get user name");
         let subName = this.afDB.object('Users/'+r.UserId+'/Name').valueChanges().subscribe(userData => {
@@ -84,14 +106,13 @@ export class TaxiDetailPage {
           subPic.unsubscribe();
         });
       });
-      subReviews.unsubscribe();
     });
 
   }
 
   goToAddReview(params){
     if (!params) params = {};
-    this.navCtrl.push(AddReviewPage);
+    this.navCtrl.push(AddReviewPage,{taxiLicensePlate: this.taxiLicensePlate});
   }
   
 }

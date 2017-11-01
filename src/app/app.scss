@@ -52,6 +52,28 @@ $SIDEMENU_TRANSPARENCY: rgba(255, 255, 255, 0.4);
 }
 
 //add
+.div-overallRating {
+    padding: 5px;
+    width: 90%;
+    margin: 0 auto;
+    background-color: #e3eb9d;
+    border-radius: 10px;
+    border-style: dashed;
+    border-color: #BA3E7C;
+}
+
+.div-overallRating p {
+    text-align: center;
+    margin: 0;
+    color: #BA3E7C;
+    font-weight: bold;
+}
+
+.div-overallRating h1 {
+    color: #BA3E7C;
+    text-align: center;
+}
+
 .div-color-commend {
     background-color: #F1F1E9;
     border-radius: 10px;

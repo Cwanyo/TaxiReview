@@ -12,8 +12,7 @@ import * as firebase from 'firebase/app';
 })
 export class ProfilePage {
 
-  //TODO - make it as object so google and facebook can share the same object
-  user: firebase.User
+  private user: firebase.User;
   
   constructor(
     public navCtrl: NavController,
@@ -44,9 +43,9 @@ export class ProfilePage {
       }else{
         console.log("User not exist");
 
-        var Email = this.user.email;
-        var Name = this.user.displayName;
-        var Image = this.user.photoURL;
+        let Email = this.user.email;
+        let Name = this.user.displayName;
+        let Image = this.user.photoURL;
 
         dbUserRef.set({Email,Name,Image});
         console.log("Added new user to firedatabase");

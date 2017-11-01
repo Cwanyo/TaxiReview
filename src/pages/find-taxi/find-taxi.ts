@@ -30,7 +30,7 @@ export class FindTaxiPage {
 
   public taxiLicensePlate: string = 'ทว2434';
 
-  storage = firebase.storage();
+  public storage = firebase.storage();
 
   constructor(
     public navCtrl: NavController,
@@ -89,7 +89,6 @@ export class FindTaxiPage {
         }
       })
       .catch(error =>{
-        //TODO - alert error to user
         console.log("Error using openalpr api",error);
       });
     })
@@ -131,42 +130,36 @@ export class FindTaxiPage {
       })
       .then(() => {
         //add image to taxi in firedatabase
-        this.addTaxiImage();
+        this.addTaxiImageToFiredatabase();
       });
     })
     .catch(error => console.log("Error",error));
   }
 
-  addTaxiImage(){
+  addTaxiImageToFiredatabase(){
     const dbTaxiRef = this.afDB.object('Taxis/'+this.taxiLicensePlate);
     let dbTaxi = dbTaxiRef.valueChanges();
     let sub = dbTaxi.subscribe(taxiData => {
 
-      var im = {};
+      let im = {};
       im[''+new Date().getTime()] = this.taxiPhotoURL;
 
-      if(taxiData !== null){
-        console.log("Taxi already exist");
+      if(taxiData == null){
+        console.log("Taxi not exist");
+        
+        dbTaxiRef.set({'Images': im});
 
+        console.log("Create and add new Image url to taxi in firedatabase");
+      }else{
+        console.log("Taxi already exist");
+        
         const dbTaxiImageRef = this.afDB.object('Taxis/'+this.taxiLicensePlate+'/Images/');
 
         dbTaxiImageRef.update(im);
 
         console.log("Append new Image url to taxi in firedatabase");
-      }else{
-        console.log("Taxi not exist");
-
-        dbTaxiRef.set({
-          'Images': im,
-          'OverrallRating': {
-              "Cleanness": 0,
-              "Politeness": 0,
-              "Service": 0
-          }
-        });
-
-        console.log("Create and add new Image url to taxi in firedatabase");
       }
+     
       sub.unsubscribe();
       //reset
       this.resetValue();
