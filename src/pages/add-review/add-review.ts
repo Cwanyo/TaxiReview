@@ -20,7 +20,6 @@ export class AddReviewPage {
 
   private user: firebase.User;
 
-
   public taxiReviews: Observable<any[]>;
 
   public Service:string;
@@ -71,7 +70,11 @@ export class AddReviewPage {
         taxiReviewsRef.set(''+new Date().getTime(), {UserId,Service,Politeness,Cleanness,Comment});
       
         //add overall rating
-        taxiORRef.set({Service,Politeness,Cleanness});
+        taxiORRef.set({
+          "Cleanness":parseFloat(''+Number((Cleanness))).toFixed(2),
+          "Politeness":parseFloat(''+Number((Politeness))).toFixed(2),
+          "Service":parseFloat(''+Number((Service))).toFixed(2)
+        });
 
         console.log("Create and add new review of taxi in firedatabase");
       }else{
@@ -94,9 +97,9 @@ export class AddReviewPage {
 
         //add overall rating
         taxiORRef.set({
-          "Cleanness":c/count,
-          "Politeness":p/count,
-          "Service":s/count
+          "Cleanness":parseFloat(''+Number((c/count))).toFixed(2),
+          "Politeness":parseFloat(''+Number((p/count))).toFixed(2),
+          "Service":parseFloat(''+Number((s/count))).toFixed(2)
         });
 
         console.log("Add new review of taxi in firedatabase");
