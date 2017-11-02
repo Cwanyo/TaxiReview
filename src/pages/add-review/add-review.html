@@ -62,9 +62,9 @@
         <h3 class="rating-label" style="margin-left:2.5%;">
             Comment
         </h3>
-        <ion-textarea style="margin-left:5%;" placeholder="Give feedback"></ion-textarea>
+        <ion-textarea style="margin-left:5%;" placeholder="Give feedback" [(ngModel)]="Comment"></ion-textarea>
 
-        <button class="button-general" style="background-color:#BA3E7C" on-click="submitReview()">
+        <button class="button-general" style="background-color:#BA3E7C" [disabled]="!isValidReviewInfo()" on-click="submitReview()">
             Submit
         </button>
     </div>

@@ -14,18 +14,34 @@
 
     <div class="div-color">
 
-        <h1 style="color:#BA3E7C;text-align:center;padding-top:3%;">
-            ทว-2434
+        <h1 style="color:#BA3E7C;text-align:center;padding-top:3%;font-weight:bold;">
+            {{taxiLicensePlate}}
         </h1>
-        <div>
-            <img src="assets/img/IBv4mpURJG48AKjBeYKO_1280px-Taxi-meter_in_Bangkok_08.JPG" style="border-radius:20px;display:block;width:80%;height:auto;margin-left:auto;margin-right:auto;" />
+
+        <ion-slides>
+            <ion-slide *ngFor="let taxiImage of taxiImages | async">
+                <img src="{{taxiImage}}" style="display:block;width:auto;height:200px;margin-left:auto;margin-right:auto;" />
+            </ion-slide>
+            <ion-slide *ngIf="!taxiImagesExist">
+                <img src="assets/img/taxi.png" style="display:block;width:auto;height:200px;margin-left:auto;margin-right:auto;" />
+            </ion-slide>
+        </ion-slides>
+
+        <div class="spacer" style="height:10px;" id="profile-spacer4"></div>
+
+        <div class="div-overallRating">
+            <h1>Overall Rating</h1>
+            <p *ngIf="taxiOverallRatingExist">
+                Cleanness : {{(taxiOverallRating | async)?.Cleanness}}
+                <br> Politeness : {{(taxiOverallRating | async)?.Politeness}}
+                <br>Service : {{(taxiOverallRating | async)?.Service}}
+            </p>
+            <p *ngIf="!taxiOverallRatingExist">
+                Cleanness : none
+                <br> Politeness : none
+                <br>Service : none
+            </p>
         </div>
-
-        <h1 style="color:#BA3E7C;text-align:center;padding-top:3%;">
-            Overall Rating
-        </h1>
-
-        <img src="assets/img/star.png" style="width:5%;height:auto;display:block;margin:0 auto;">
 
         <button id="taxiDetail-button4" class="button-general" on-click="goToAddReview()">
             Add Review
@@ -33,45 +49,35 @@
 
     </div>
 
+    <div *ngIf="!taxiReviewExist">
+        <div class="spacer" style="height:20px;" id="profile-spacer4"></div>
+        <div class="div-color">
+            <h1 style="color:#BA3E7C;text-align:center;padding-top:3%;">
+                No Reviews
+            </h1>
+        </div>
+    </div>
 
-    <ion-card class="div-color-commend" style="margin:10px 0px 10px 0px;width:100%;">
-        <ion-list>
-            <ion-item class="div-color-commend-header" id="taxiDetail-list-item11">
-                <ion-avatar item-left>
-                    <img src="assets/img/e2ZTq4z5RHqAtdL6Wfof_jason-bourne-movie-review-r.jpg" />
-                </ion-avatar>
-                <h2 style="color:#BA3E7C;font-size:20px;font-weight: bold;">
-                    Jason Bourne
-                </h2>
-            </ion-item>
-            <ion-item id="taxiDetail-list-item-container2" class="div-color-commend">
-                <div id="taxiDetail-markdown2" class="show-list-numbers-and-dots">
-                    <p style="color:#BA3E7C;">
-                        คนขับพูดจาสุภาพมากครับ
-                    </p>
-                </div>
-            </ion-item>
-        </ion-list>
-    </ion-card>
-
-    <ion-card class="div-color-commend" style="margin:10px 0px 10px 0px;width:100%;">
-        <ion-list>
-            <ion-item class="div-color-commend-header" id="taxiDetail-list-item11">
-                <ion-avatar item-left>
-                    <img src="assets/img/DfsgkpgxRpyVtLbszlT8_James_Bond_Daniel_Craig_-_Profile.jpg" />
-                </ion-avatar>
-                <h2 style="color:#BA3E7C;font-size:20px;font-weight: bold;">
-                    James Bond
-                </h2>
-            </ion-item>
-            <ion-item id="taxiDetail-list-item-container2" class="div-color-commend">
-                <div id="taxiDetail-markdown2" class="show-list-numbers-and-dots">
-                    <p style="color:#BA3E7C;">
-                        บริการดีครับ
-                    </p>
-                </div>
-            </ion-item>
-        </ion-list>
-    </ion-card>
+    <div>
+        <ion-card *ngFor="let taxiReview of taxiReviews | async" class="div-color-commend" style="margin:10px 0px 10px 0px;width:100%;">
+            <ion-list>
+                <ion-item class="div-color-commend-header" id="taxiDetail-list-item11">
+                    <ion-avatar item-left>
+                        <img src="{{usersPic[taxiReview.UserId]}}" />
+                    </ion-avatar>
+                    <h2 style="color:#BA3E7C;font-size:20px;font-weight: bold;">
+                        {{usersName[taxiReview.UserId]}}
+                    </h2>
+                </ion-item>
+                <ion-item id="taxiDetail-list-item-container2" class="div-color-commend">
+                    <div id="taxiDetail-markdown2" class="show-list-numbers-and-dots">
+                        <p style="color:#BA3E7C;">
+                            {{taxiReview.Comment}}
+                        </p>
+                    </div>
+                </ion-item>
+            </ion-list>
+        </ion-card>
+    </div>
 
 </ion-content>

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
 
 import { AngularFireDatabase } from 'angularfire2/database';
-import { Observable } from 'rxjs/Observable';
 
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
@@ -13,8 +12,7 @@ import * as firebase from 'firebase/app';
 })
 export class ProfilePage {
 
-  //TODO - make it as object so google and facebook can share the same object
-  user: firebase.User
+  private user: firebase.User;
   
   constructor(
     public navCtrl: NavController,
@@ -38,17 +36,18 @@ export class ProfilePage {
 
   createUser(){
     const dbUserRef = this.afDB.object('Users/'+this.user.uid);
-    let userDb = dbUserRef.valueChanges();
-    let sub = userDb.subscribe(userData => {
+    let dbUser = dbUserRef.valueChanges();
+    let sub = dbUser.subscribe(userData => {
       if(userData !== null){
         console.log("User already exist");
       }else{
         console.log("User not exist");
 
-        var Email = this.user.email;
-        var Name = this.user.displayName;
+        let Email = this.user.email;
+        let Name = this.user.displayName;
+        let Image = this.user.photoURL;
 
-        dbUserRef.set({Email,Name});
+        dbUserRef.set({Email,Name,Image});
         console.log("Added new user to firedatabase");
       }
       sub.unsubscribe();

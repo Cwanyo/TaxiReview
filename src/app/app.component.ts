@@ -20,7 +20,7 @@ export class MyApp {
   @ViewChild(Nav) navCtrl: Nav;
     rootPage:any = TabsPage;
 
-  user;
+  private user;
 
   constructor(
     public platform: Platform, 
@@ -38,7 +38,6 @@ export class MyApp {
       }
       this.user = user;
     });
-    //TODO - can set pages varible here, it can store {title:'',component:''}
   }
 
   initializeApp() {
@@ -50,7 +49,6 @@ export class MyApp {
     });
   }
 
-  //TODO - can optimize as openPage(page) function and use pages varible as pages referance
   goToProfile(params){
     if (!params) params = {};
     this.navCtrl.setRoot(ProfilePage);

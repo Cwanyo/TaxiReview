@@ -5,7 +5,6 @@ import { TaxiDetailPage } from '../taxi-detail/taxi-detail';
 
 //Fire
 import { AngularFireDatabase } from 'angularfire2/database';
-import { Observable } from 'rxjs/Observable';
 
 import firebase from 'firebase';
 
@@ -19,8 +18,6 @@ import { RestApiProvider } from '../../providers/rest-api/rest-api';
 })
 export class FindTaxiPage {
 
-  taxis: Observable<any[]>;
-
   public gotTaxiImage: boolean = false;
   public gotTaxiDatail: boolean = false;
 
@@ -28,9 +25,12 @@ export class FindTaxiPage {
   public rawTaxiPhoto: string;
   public taxiDetail: any;
 
-  public taxiLicensePlate: string = '';
+  public photoPath: string;
+  public taxiPhotoURL: string;
 
-  storage = firebase.storage();
+  public taxiLicensePlate: string = 'ทว2434';
+
+  public storage = firebase.storage();
 
   constructor(
     public navCtrl: NavController,
@@ -38,9 +38,6 @@ export class FindTaxiPage {
     private camera: Camera,
     public restApiProvider: RestApiProvider
   ) {
-
-    this.taxis = this.afDB.list('Taxis').valueChanges();
-    console.log("taxis",this.taxis);
   }
 
   resetValue(){
@@ -50,6 +47,9 @@ export class FindTaxiPage {
     this.taxiPhoto = '';
     this.rawTaxiPhoto = '';
     this.taxiDetail = null;
+
+    this.photoPath = '';
+    this.taxiPhotoURL = '';
 
     this.taxiLicensePlate = '';
   }
@@ -89,7 +89,6 @@ export class FindTaxiPage {
         }
       })
       .catch(error =>{
-        //TODO - alert error to user
         console.log("Error using openalpr api",error);
       });
     })
@@ -108,22 +107,60 @@ export class FindTaxiPage {
     }
   }
 
-  uploadPicture(){
+  uploadImage(){
     if((!this.gotTaxiImage) || (!this.gotTaxiDatail)){
       console.log("No image to upload or image did not contain any taxi");
       this.resetValue();
       return;
     }
     //set firestore path >> /images/taxis/<taxi-license-plate-number>/<file-name>.<format>
-    let photoPath = "images/taxis/"+this.taxiLicensePlate+"/"+new Date().getTime()+".jpg";
-    const storageRef = this.storage.ref(photoPath);
+    this.photoPath = "images/taxis/"+this.taxiLicensePlate+"/"+new Date().getTime()+".jpg";
+    const storageRef = this.storage.ref(this.photoPath);
     storageRef.putString(this.taxiPhoto,"data_url")
-    .then( () =>{
+    .then(() =>{
       console.log("Uploaded image");
-      //reset data
-      this.resetValue();
     })
-    .catch(error => console.log("Error uploading image",error));
+    .then(() => {
+      //get image URL
+      const storageRef = this.storage.ref(this.photoPath);
+      storageRef.getDownloadURL()
+      .then(url =>{
+        this.taxiPhotoURL = url;
+        console.log("Got image URL",this.taxiPhotoURL);
+      })
+      .then(() => {
+        //add image to taxi in firedatabase
+        this.addTaxiImageToFiredatabase();
+      });
+    })
+    .catch(error => console.log("Error",error));
+  }
+
+  addTaxiImageToFiredatabase(){
+    const dbTaxiRef = this.afDB.object('Taxis/'+this.taxiLicensePlate);
+    let dbTaxi = dbTaxiRef.valueChanges();
+    let sub = dbTaxi.subscribe(taxiData => {
+
+      const dbTaxiImageRef = this.afDB.list('Taxis/'+this.taxiLicensePlate+'/Images/');
+
+        if(taxiData == null){
+          console.log("Taxi not exist");
+          
+          dbTaxiImageRef.set(''+new Date().getTime(),this.taxiPhotoURL);
+
+          console.log("Create and add new Image url to taxi in firedatabase");
+        }else{
+          console.log("Taxi already exist");
+
+          dbTaxiImageRef.set(''+new Date().getTime(),this.taxiPhotoURL);
+
+          console.log("Append new Image url to taxi in firedatabase");
+        }
+
+        sub.unsubscribe();
+        //reset
+        this.resetValue();
+    });
   }
 
   isValidTaxiInfo(){
@@ -134,11 +171,13 @@ export class FindTaxiPage {
   }
 
   goToTaxiDetail(params){
+    //store data before reset
+    let tlp = this.taxiLicensePlate;
     //TODO - give user option whether they want to upload image or not
-    this.uploadPicture();
+    this.uploadImage();
     
     if (!params) params = {};
-    this.navCtrl.push(TaxiDetailPage);
+    this.navCtrl.push(TaxiDetailPage,{taxiLicensePlate: tlp});
   }
 
 }
