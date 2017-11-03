@@ -21,11 +21,14 @@ export class TaxiDetailPage {
   private usersPic = {};
   public taxiReviews: Observable<any[]>;
   public taxiImages: Observable<any[]>;
-  public taxiOverallRating: Observable<any[]>;
+  public calTaxiOverallRating = {
+    Cleanness:'none',
+    Politeness:'none',
+    Service:'none'
+  }
   
   private taxiReviewExist: boolean = false;
   private taxiImagesExist: boolean = false;
-  private taxiOverallRatingExist: boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -33,25 +36,9 @@ export class TaxiDetailPage {
     navParams: NavParams
   ) {
     this.taxiLicensePlate = navParams.get('taxiLicensePlate');
+    console.log("Find Taxi",this.taxiLicensePlate);
     this.getTaxiReviews();
     this.getTaxiImages();
-    this.getOverallRating();
-  }
-
-  getOverallRating(){
-    //get taxi rating
-    this.taxiOverallRating = this.afDB.object('Taxis/'+this.taxiLicensePlate+'/OverallRating').valueChanges();
-
-    let subOR = this.taxiOverallRating.subscribe(orData => {
-      if(orData == null){
-        console.log("orData not exist");
-        this.taxiOverallRatingExist = false;
-      }else{
-        console.log("orData exist");
-        this.taxiOverallRatingExist = true;
-      }
-      subOR.unsubscribe();
-    });
   }
 
   getTaxiImages(){
@@ -70,8 +57,7 @@ export class TaxiDetailPage {
   }
 
   getTaxiReviews(){
-    //get last new 20 reviews
-    this.taxiReviews = this.afDB.list('Taxis/'+this.taxiLicensePlate+'/UserReviews', ref=> ref.limitToLast(20)).valueChanges();
+    this.taxiReviews = this.afDB.list('Taxis/'+this.taxiLicensePlate+'/UserReviews').valueChanges();
 
     this.taxiReviews.subscribe(taxiReview => {
       if(taxiReview.length == 0){
@@ -81,10 +67,18 @@ export class TaxiDetailPage {
         console.log("Taxi review exist");
         this.taxiReviewExist = true;
       }
+
+      let c = 0;
+      let p = 0;
+      let s = 0;
       //Get user Data
+      console.log("Get user name and image");
       taxiReview.forEach( r => {
+        //Get each user rating
+        c += parseInt(r.Cleanness);
+        p += parseInt(r.Politeness);
+        s += parseInt(r.Service);
         //Get user name
-        console.log("Get user name");
         let subName = this.afDB.object('Users/'+r.UserId+'/Name').valueChanges().subscribe(userData => {
           if(userData !== null){
             console.log("User name exist");
@@ -94,8 +88,7 @@ export class TaxiDetailPage {
           }
           subName.unsubscribe();
         });
-        //Get user picture
-        console.log("Get user pic");
+        //Get user image
         let subPic = this.afDB.object('Users/'+r.UserId+'/Image').valueChanges().subscribe(userData => {
           if(userData !== null){
             console.log("User image exist");
@@ -106,8 +99,11 @@ export class TaxiDetailPage {
           subPic.unsubscribe();
         });
       });
+      //Calc overall rating
+      this.calTaxiOverallRating.Cleanness = parseFloat(''+Number((c/taxiReview.length))).toFixed(2);
+      this.calTaxiOverallRating.Politeness = parseFloat(''+Number((p/taxiReview.length))).toFixed(2);
+      this.calTaxiOverallRating.Service = parseFloat(''+Number((s/taxiReview.length))).toFixed(2);
     });
-
   }
 
   goToAddReview(params){

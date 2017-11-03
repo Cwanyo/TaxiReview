@@ -146,15 +146,13 @@ export class FindTaxiPage {
         if(taxiData == null){
           console.log("Taxi not exist");
           
-          dbTaxiImageRef.set(''+new Date().getTime(),this.taxiPhotoURL);
-
-          console.log("Create and add new Image url to taxi in firedatabase");
+          dbTaxiImageRef.set(''+new Date().getTime(),this.taxiPhotoURL)
+          .then(res=>console.log("Create and add new Image url to taxi in firedatabase"));
         }else{
           console.log("Taxi already exist");
 
-          dbTaxiImageRef.set(''+new Date().getTime(),this.taxiPhotoURL);
-
-          console.log("Append new Image url to taxi in firedatabase");
+          dbTaxiImageRef.set(''+new Date().getTime(),this.taxiPhotoURL)
+          .then(res=>console.log("Append new Image url to taxi in firedatabase"));
         }
 
         sub.unsubscribe();

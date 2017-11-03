@@ -31,15 +31,10 @@
 
         <div class="div-overallRating">
             <h1>Overall Rating</h1>
-            <p *ngIf="taxiOverallRatingExist">
-                Cleanness : {{(taxiOverallRating | async)?.Cleanness}}
-                <br> Politeness : {{(taxiOverallRating | async)?.Politeness}}
-                <br>Service : {{(taxiOverallRating | async)?.Service}}
-            </p>
-            <p *ngIf="!taxiOverallRatingExist">
-                Cleanness : none
-                <br> Politeness : none
-                <br>Service : none
+            <p>
+                Service : {{calTaxiOverallRating.Service}}
+                <br>Politeness : {{calTaxiOverallRating.Politeness}}
+                <br>Cleanness : {{calTaxiOverallRating.Cleanness}}
             </p>
         </div>
 
