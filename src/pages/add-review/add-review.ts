@@ -52,6 +52,7 @@ export class AddReviewPage {
 
   addReview(){
     const taxiReviewsRef = this.afDB.list('Taxis/'+this.taxiLicensePlate+'/UserReviews');
+
     this.taxiReviews = taxiReviewsRef.valueChanges();
 
     let sub = this.taxiReviews.subscribe(taxiReview => {
@@ -61,50 +62,41 @@ export class AddReviewPage {
       let Cleanness = this.Cleanness;
       let Comment = this.Comment;
 
-      const taxiORRef = this.afDB.object('Taxis/'+this.taxiLicensePlate+'/OverallRating');
-
       if(taxiReview.length == 0){
         console.log("Taxi review not exist");
-
         //add review
-        taxiReviewsRef.set(''+new Date().getTime(), {UserId,Service,Politeness,Cleanness,Comment});
-      
-        //add overall rating
-        taxiORRef.set({
-          "Cleanness":parseFloat(''+Number((Cleanness))).toFixed(2),
-          "Politeness":parseFloat(''+Number((Politeness))).toFixed(2),
-          "Service":parseFloat(''+Number((Service))).toFixed(2)
-        });
-
-        console.log("Create and add new review of taxi in firedatabase");
+        taxiReviewsRef.set(''+new Date().getTime(), {UserId,Service,Politeness,Cleanness,Comment})
+        .then(res=>console.log("Create and add new review of taxi in firedatabase"));
       }else{
         console.log("Taxi review exist");
-        //TODO - overwrite same user
-        //add review
-        taxiReviewsRef.set(''+new Date().getTime(), {UserId,Service,Politeness,Cleanness,Comment});
+        //Check user review already exist or not
+        let currUserReview = this.afDB.list('Taxis/'+this.taxiLicensePlate+'/UserReviews',
+        ref => ref.orderByChild('UserId').equalTo(this.user.uid)).snapshotChanges();
 
-        let count = 1;
-        let c = parseInt(Cleanness);
-        let p = parseInt(Politeness);
-        let s = parseInt(Service);
-        //cal overall rating
-        taxiReview.forEach( r => {
-            count++;
-            c += parseInt(r.Cleanness);
-            p += parseInt(r.Politeness);
-            s += parseInt(r.Service);
+        let curSub = currUserReview.subscribe(curData => {
+          if(curData.length == 0){
+            console.log("Current user review never exist");
+            //add review
+            taxiReviewsRef.set(''+new Date().getTime(), {UserId,Service,Politeness,Cleanness,Comment})
+            .then(res=>console.log("Add new review of taxi in firedatabase"));
+          }else{
+            console.log("Current user review already exist",curData);
+            //Delete all the previous review of the current user
+            curData.forEach(c => {
+              this.afDB.list('Taxis/'+this.taxiLicensePlate+'/UserReviews/'+c.key).remove()
+              .then(res=>console.log("Deleted review at",c.key))
+              .then(()=>{
+                //add review
+                taxiReviewsRef.set(''+new Date().getTime(), {UserId,Service,Politeness,Cleanness,Comment})
+                .then(res=>console.log("Add new review of taxi in firedatabase"));
+              })
+              .catch(err=>console.log("Error deleting review",err));
+            });
+          }
+          curSub.unsubscribe();
         });
-
-        //add overall rating
-        taxiORRef.set({
-          "Cleanness":parseFloat(''+Number((c/count))).toFixed(2),
-          "Politeness":parseFloat(''+Number((p/count))).toFixed(2),
-          "Service":parseFloat(''+Number((s/count))).toFixed(2)
-        });
-
-        console.log("Add new review of taxi in firedatabase");
+        
       }
-
       sub.unsubscribe();
     });
 

@@ -47,8 +47,8 @@ export class ProfilePage {
         let Name = this.user.displayName;
         let Image = this.user.photoURL;
 
-        dbUserRef.set({Email,Name,Image});
-        console.log("Added new user to firedatabase");
+        dbUserRef.set({Email,Name,Image})
+        .then(res=>console.log("Added new user to firedatabase"));
       }
       sub.unsubscribe();
     });
