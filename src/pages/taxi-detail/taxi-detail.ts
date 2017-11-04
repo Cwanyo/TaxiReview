@@ -5,6 +5,8 @@ import { AddReviewPage } from '../add-review/add-review';
 
 //Fire
 import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase/app';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -16,6 +18,8 @@ import { Observable } from 'rxjs/Observable';
 export class TaxiDetailPage {
 
   public taxiLicensePlate: string = '';
+
+  private user: firebase.User;
 
   private usersName = {};
   private usersPic = {};
@@ -32,13 +36,32 @@ export class TaxiDetailPage {
 
   constructor(
     public navCtrl: NavController,
+    private afAuth: AngularFireAuth,
     private afDB:AngularFireDatabase,
     navParams: NavParams
   ) {
     this.taxiLicensePlate = navParams.get('taxiLicensePlate');
     console.log("Find Taxi",this.taxiLicensePlate);
+    this.userAuth();
     this.getTaxiReviews();
     this.getTaxiImages();
+  }
+
+  addToUserRecentView(){
+    //add this taxi to user recent view if user loged in
+    this.afDB.object('Users/'+this.user.uid+'/Recents/'+this.taxiLicensePlate).set(''+new Date().getTime())
+    .then(res=>console.log("Added to my recent view"));
+  }
+
+  userAuth(){
+    this.afAuth.authState.subscribe(user => {
+      if (!user) {
+        this.user = null;
+        return;
+      }
+      this.user = user;
+      this.addToUserRecentView();
+    });
   }
 
   getTaxiImages(){
