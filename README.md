@@ -67,6 +67,7 @@ The application that allows users to search and check taxi reviews from other us
 Link to our [prototype](https://creator.ionic.io/share/dd7f0f339376)
 
 # Known issues and bugs
+- There are no effective ways to sort data in the descending order
 
 # Contributors
 - Chatchawan yoojuie
