@@ -55,6 +55,8 @@ export class AddReviewPage {
 
     this.taxiReviews = taxiReviewsRef.valueChanges();
 
+    let curTime = new Date().getTime().toString();
+
     let sub = this.taxiReviews.subscribe(taxiReview => {
       let UserId = this.user.uid;
       let Service = this.Service;
@@ -65,8 +67,11 @@ export class AddReviewPage {
       if(taxiReview.length == 0){
         console.log("Taxi review not exist");
         //add review
-        taxiReviewsRef.set(''+new Date().getTime(), {UserId,Service,Politeness,Cleanness,Comment})
+        taxiReviewsRef.set(curTime, {UserId,Service,Politeness,Cleanness,Comment})
         .then(res=>console.log("Create and add new review of taxi in firedatabase"));
+        //add my review
+        this.afDB.object('Users/'+this.user.uid+'/Reviews/'+this.taxiLicensePlate).set(true)
+        .then(res=>console.log("Added to my review"));
       }else{
         console.log("Taxi review exist");
         //Check user review already exist or not
@@ -77,7 +82,7 @@ export class AddReviewPage {
           if(curData.length == 0){
             console.log("Current user review never exist");
             //add review
-            taxiReviewsRef.set(''+new Date().getTime(), {UserId,Service,Politeness,Cleanness,Comment})
+            taxiReviewsRef.set(curTime, {UserId,Service,Politeness,Cleanness,Comment})
             .then(res=>console.log("Add new review of taxi in firedatabase"));
           }else{
             console.log("Current user review already exist",curData);
@@ -87,7 +92,7 @@ export class AddReviewPage {
               .then(res=>console.log("Deleted review at",c.key))
               .then(()=>{
                 //add review
-                taxiReviewsRef.set(''+new Date().getTime(), {UserId,Service,Politeness,Cleanness,Comment})
+                taxiReviewsRef.set(curTime, {UserId,Service,Politeness,Cleanness,Comment})
                 .then(res=>console.log("Add new review of taxi in firedatabase"));
               })
               .catch(err=>console.log("Error deleting review",err));
