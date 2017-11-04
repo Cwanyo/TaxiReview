@@ -8,7 +8,6 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 
-//import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
@@ -18,6 +17,8 @@ import { Observable } from 'rxjs/Observable';
 export class MyReviewPage {
 
   private user: firebase.User;
+
+  private myReviewsExist: boolean = false;
 
   private myReviews: Observable<any>;
   private taxisImage = {};
@@ -44,17 +45,24 @@ export class MyReviewPage {
 
   getListOfMyReviews(){
     console.log("getListOfMyReviews");
+
     const myReviewsRef = this.afDB.list('Users/'+this.user.uid+'/Reviews/');
     this.myReviews = myReviewsRef.snapshotChanges();
     let sub = this.myReviews.subscribe(myreviewData => {
 
+      if(myreviewData.length == 0){
+        console.log("My reviews not exist");
+        this.myReviewsExist = false;
+      }else{
+        console.log("My reviews exist");
+        this.myReviewsExist = true;
+      }
+
       myreviewData.forEach(r=>{
-        console.log(r.key);
         const taxiImage = this.afDB.list('Taxis/'+r.key+'/Images', ref => ref.limitToLast(1)).valueChanges();
         let imSub = taxiImage.subscribe(imageData => {
           if(imageData.length == 0){
             console.log("Taxi image not exist");
-            //this.taxisImage[r.key] = "assets/img/taxi.png";
           }else{
             console.log("Taxi image exist");
             this.taxisImage[r.key] = imageData;

@@ -70,9 +70,6 @@ export class AddReviewPage {
         //add review
         taxiReviewsRef.set(curTime, {UserId,Service,Politeness,Cleanness,Comment})
         .then(res=>console.log("Create and add new review of taxi in firedatabase"));
-        //add my review
-        this.afDB.object('Users/'+this.user.uid+'/Reviews/'+this.taxiLicensePlate).set(true)
-        .then(res=>console.log("Added to my review"));
       }else{
         console.log("Taxi review exist");
         //Check user review already exist or not
@@ -101,7 +98,9 @@ export class AddReviewPage {
           }
           curSub.unsubscribe();
         });
-        
+        //add my review
+        this.afDB.object('Users/'+this.user.uid+'/Reviews/'+this.taxiLicensePlate).set(true)
+        .then(res=>console.log("Added to my review"));
       }
       sub.unsubscribe();
     });
