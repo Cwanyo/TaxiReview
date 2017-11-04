@@ -9,7 +9,10 @@ import { TaxiDetailPage } from '../taxi-detail/taxi-detail';
 })
 export class RecentViewPage {
 
-  constructor(public navCtrl: NavController) {
+  constructor(
+    public navCtrl: NavController
+  ) {
+    console.log("RecentViewPage");
   }
   goToTaxiDetail(params){
     if (!params) params = {};

@@ -38,6 +38,7 @@ export class FindTaxiPage {
     private camera: Camera,
     public restApiProvider: RestApiProvider
   ) {
+    console.log("FindTaxiPage");
   }
 
   resetValue(){

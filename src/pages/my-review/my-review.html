@@ -13,17 +13,25 @@
 
     <div class="div-color-list">
 
-        <ion-list id="myReview-list3" style="margin-top:2%">
-            <ion-item class="listitem-color" on-click="goToTaxiDetail()" id="myReview-list-item13">
+        <ion-list *ngFor="let myReview of myReviews | async" id="myReview-list3" style="margin-top:2%">
+            <ion-item class="listitem-color" on-click="goToTaxiDetail(myReview.key)" id="myReview-list-item13">
                 <ion-avatar item-left>
-                    <img src="assets/img/p4dI2TvhQ7qoGaOE7kZt_taxi.jpg" />
+                    <img src="{{taxisImage[myReview.key]}}" />
                 </ion-avatar>
                 <h2>
-                    ทว-2434
+                    {{myReview.key}}
                 </h2>
             </ion-item>
         </ion-list>
 
+        <div *ngIf="!user">
+            <div class="spacer" style="height:20px;" id="profile-spacer4"></div>
+            <div class="div-color">
+                <h1 style="color:#BA3E7C;text-align:center;padding-top:3%;">
+                    Please login
+                </h1>
+            </div>
+        </div>
     </div>
 
 </ion-content>

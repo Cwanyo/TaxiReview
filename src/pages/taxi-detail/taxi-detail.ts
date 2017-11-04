@@ -40,6 +40,7 @@ export class TaxiDetailPage {
     private afDB:AngularFireDatabase,
     navParams: NavParams
   ) {
+    console.log("TaxiDetailPage");
     this.taxiLicensePlate = navParams.get('taxiLicensePlate');
     console.log("Find Taxi",this.taxiLicensePlate);
     this.userAuth();

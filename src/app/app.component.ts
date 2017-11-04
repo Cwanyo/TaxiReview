@@ -5,9 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 //Menu
 import { ProfilePage } from '../pages/profile/profile';
-import { FindTaxiPage } from '../pages/find-taxi/find-taxi';
-import { RecentViewPage } from '../pages/recent-view/recent-view';
-import { MyReviewPage } from '../pages/my-review/my-review';
 
 import { TabsPage } from './../pages/tabs/tabs';
 
@@ -52,17 +49,17 @@ export class MyApp {
   goToProfile(params){
     if (!params) params = {};
     this.navCtrl.setRoot(ProfilePage);
-  }goToFindTaxi(params){
+  }
+  goToFindTaxi(params){
     if (!params) params = {};
-    this.navCtrl.setRoot(FindTaxiPage);
     this.navCtrl.push(TabsPage,{index: "0"})
-  }goToRecentView(params){
+  }
+  goToRecentView(params){
     if (!params) params = {};
-    this.navCtrl.setRoot(RecentViewPage);
     this.navCtrl.push(TabsPage,{index: "1"})
-  }goToMyReview(params){
+  }
+  goToMyReview(params){
     if (!params) params = {};
-    this.navCtrl.setRoot(MyReviewPage);
     this.navCtrl.push(TabsPage,{index: "2"})
   }
   
