@@ -16,7 +16,8 @@
         <ion-list *ngFor="let myReview of myReviews | async" id="myReview-list3" style="margin-top:2%">
             <ion-item class="listitem-color" on-click="goToTaxiDetail(myReview.key)" id="myReview-list-item13">
                 <ion-avatar item-left>
-                    <img src="{{taxisImage[myReview.key]}}" />
+                    <img *ngIf="!taxisImage[myReview.key]" src="assets/img/taxi.png">
+                    <img *ngIf="taxisImage[myReview.key]" src="{{taxisImage[myReview.key]}}" />
                 </ion-avatar>
                 <h2>
                     {{myReview.key}}
