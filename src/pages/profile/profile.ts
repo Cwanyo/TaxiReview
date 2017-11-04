@@ -20,6 +20,7 @@ export class ProfilePage {
     private afDB:AngularFireDatabase,
     private platform: Platform 
   ) {
+    console.log("ProfilePage");
     this.userAuth();
   }
   

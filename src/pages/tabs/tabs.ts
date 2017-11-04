@@ -10,14 +10,15 @@ import { RecentViewPage } from './../recent-view/recent-view';
 })
 export class TabsPage {
   
-  index;
+  index: number;
 
   tab1Root = FindTaxiPage;
   tab2Root = RecentViewPage;
   tab3Root = MyReviewPage;
 
   constructor(navParams: NavParams) {
-    this.index = navParams.get('index');
+    console.log("TabsPage");
+    this.index = navParams.get('index') || 0;
   }
 
   

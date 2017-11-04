@@ -33,6 +33,7 @@ export class AddReviewPage {
     private afDB:AngularFireDatabase,
     navParams: NavParams
   ) {
+    console.log("AddReviewPage");
     this.taxiLicensePlate = navParams.get('taxiLicensePlate');
     this.userAuth();
   }
