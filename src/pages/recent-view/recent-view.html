@@ -11,27 +11,38 @@
 
 <ion-content padding id="page2" class="background-color">
 
-    <div class="div-color-list">
+    <div *ngIf="myRecentViewExist" class="div-color-list">
 
-        <ion-list id="recentView-list2" style="margin-top:2%">
-            <ion-item class="listitem-color" on-click="goToTaxiDetail()" id="recentView-list-item7">
+        <ion-list *ngFor="let myRecentView of myRecentViews | async" id="myReview-list3" style="margin-top:2%">
+            <ion-item class="listitem-color" on-click="goToTaxiDetail(myRecentView.key)" id="myReview-list-item13">
                 <ion-avatar item-left>
-                    <img src="assets/img/4RFpJh1AQ62fhqDcjsju_taxi.jpg" />
+                    <img *ngIf="!taxisImage[myRecentView.key]" src="assets/img/taxi.png">
+                    <img *ngIf="taxisImage[myRecentView.key]" src="{{taxisImage[myRecentView.key]}}" />
                 </ion-avatar>
-                <h2>
-                    ทว-2434
-                </h2>
-            </ion-item>
-            <ion-item class="listitem-color" id="recentView-list-item10">
-                <ion-avatar item-left>
-                    <img src="assets/img/DrdWoIGlRV2cRkEY7jcu_taxi1.jpg" />
-                </ion-avatar>
-                <h2>
-                    สน-1412
+                <h2 style="color:#BA3E7C;font-weight:500;">
+                    {{myRecentView.key}}
                 </h2>
             </ion-item>
         </ion-list>
 
+    </div>
+
+    <div *ngIf="!user">
+        <div class="spacer " style="height:20px;" id="profile-spacer4"></div>
+        <div class="div-color ">
+            <h1 style="color:#BA3E7C;text-align:center;padding-top:3%; ">
+                Please login
+            </h1>
+        </div>
+    </div>
+
+    <div *ngIf="!myRecentViewExist">
+        <div class="spacer " style="height:20px;" id="profile-spacer4"></div>
+        <div class="div-color ">
+            <h1 style="color:#BA3E7C;text-align:center;">
+                Empty
+            </h1>
+        </div>
     </div>
 
 </ion-content>
