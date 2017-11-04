@@ -28,7 +28,7 @@ export class FindTaxiPage {
   public photoPath: string;
   public taxiPhotoURL: string;
 
-  public taxiLicensePlate: string = 'ทว2434';
+  public taxiLicensePlate: string;
 
   public storage = firebase.storage();
 
