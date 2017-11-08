@@ -43,7 +43,7 @@ $ ionic cordova run android
 
 # Architecture
 - [Ionic 3](https://ionicframework.com) & [Cordova](https://cordova.apache.org) - The hybrid application framework
-- [Firebase](https://firebase.google.com) - Used for authentication, realtime database and cloud storage
+- [Firebase](https://firebase.google.com) - Used for authentication, realtime database, cloud storage and hosting
 
 # API
 - [OpenALPR](https://github.com/openalpr/openalpr) - Automatic license plate recognition library
@@ -81,3 +81,5 @@ Link to our [prototype](https://creator.ionic.io/share/dd7f0f339376)
 # Contributors
 - Chatchawan yoojuie
 - Vorapat phorncharroenroj
+
+Link to our [website](https://taxireview-wvn.firebaseapp.com)
