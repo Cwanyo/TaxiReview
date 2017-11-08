@@ -46,10 +46,10 @@ $ ionic cordova run android
 - [Firebase](https://firebase.google.com) - Used for authentication, realtime database and cloud storage
 
 # API
-- [OpenALPR](https://github.com/openalpr/openalpr) - Automatic License Plate Recognition library
+- [OpenALPR](https://github.com/openalpr/openalpr) - Automatic license plate recognition library
 
 # Description
-The application that allows users to search and check taxi reviews from other users by entering the licence number. Also, users can comment or give rating on that particular taxi.
+The application that allows users to find and check taxi reviews from other users in realtime
 
 <p align="center">
     <img src="doc/Poster_taxireview.png" height="750px">
@@ -57,10 +57,10 @@ The application that allows users to search and check taxi reviews from other us
 
 # Features
 
-### Account Registration 
-- Login with Google or Facebook
+### Account registration 
+- Login via Google or Facebook
 
-### Find Taxi
+### Find taxi
 - Take a photo or typing in the licence plate number to find the taxi
 
 ### Create taxi review
@@ -69,7 +69,7 @@ The application that allows users to search and check taxi reviews from other us
 
 ### View reviews
 - Show taxi details
-- Overall rating and comment from other users in realtime
+- Show overall rating and comment from other users in realtime
 
 # Prototype
 ![Prototype Taxi Review](doc/prototype.png)
