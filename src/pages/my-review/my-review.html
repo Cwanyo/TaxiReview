@@ -11,19 +11,32 @@
 
 <ion-content padding id="page3" class="background-color">
 
-    <div *ngIf="myReviewsExist" class="div-color-list">
+    <div *ngIf="user">
 
-        <ion-list *ngFor="let myReview of myReviews | async" id="myReview-list3" style="margin-top:2%">
-            <ion-item class="listitem-color" on-click="goToTaxiDetail(myReview.key)" id="myReview-list-item13">
-                <ion-avatar item-left>
-                    <img *ngIf="!taxisImage[myReview.key]" src="assets/img/taxi.png">
-                    <img *ngIf="taxisImage[myReview.key]" src="{{taxisImage[myReview.key]}}" />
-                </ion-avatar>
-                <h2 style="color:#BA3E7C;font-weight:500;">
-                    {{myReview.key}}
-                </h2>
-            </ion-item>
-        </ion-list>
+        <div *ngIf="myReviewsExist" class="div-color-list">
+
+            <ion-list *ngFor="let myReview of myReviews | async" id="myReview-list3" style="margin-top:2%">
+                <ion-item class="listitem-color" on-click="goToTaxiDetail(myReview.key)" id="myReview-list-item13">
+                    <ion-avatar item-left>
+                        <img *ngIf="!taxisImage[myReview.key]" src="assets/img/taxi.png">
+                        <img *ngIf="taxisImage[myReview.key]" src="{{taxisImage[myReview.key]}}" />
+                    </ion-avatar>
+                    <h2 style="color:#BA3E7C;font-weight:500;">
+                        {{myReview.key}}
+                    </h2>
+                </ion-item>
+            </ion-list>
+
+        </div>
+
+        <div *ngIf="!myReviewsExist">
+            <div class="spacer" style="height:20px;" id="profile-spacer4"></div>
+            <div class="div-color">
+                <h1 style="color:#BA3E7C;text-align:center;">
+                    Empty
+                </h1>
+            </div>
+        </div>
 
     </div>
 
@@ -32,15 +45,6 @@
         <div class="div-color">
             <h1 style="color:#BA3E7C;text-align:center;padding-top:3%;">
                 Please login
-            </h1>
-        </div>
-    </div>
-
-    <div *ngIf="!myReviewsExist">
-        <div class="spacer" style="height:20px;" id="profile-spacer4"></div>
-        <div class="div-color">
-            <h1 style="color:#BA3E7C;text-align:center;">
-                Empty
             </h1>
         </div>
     </div>
