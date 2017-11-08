@@ -37,7 +37,6 @@ export class ProfilePage {
 
   UpdateUser(){
     const dbUserRef = this.afDB.object('Users/'+this.user.uid);
-    let dbUser = dbUserRef.valueChanges();
 
     let Email = this.user.email;
     let Name = this.user.displayName;
