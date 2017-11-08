@@ -31,28 +31,20 @@ export class ProfilePage {
         return;
       }
       this.user = user;
-      this.createUser();
+      this.UpdateUser();
     });
   }
 
-  createUser(){
+  UpdateUser(){
     const dbUserRef = this.afDB.object('Users/'+this.user.uid);
     let dbUser = dbUserRef.valueChanges();
-    let sub = dbUser.subscribe(userData => {
-      if(userData !== null){
-        console.log("User already exist");
-      }else{
-        console.log("User not exist");
 
-        let Email = this.user.email;
-        let Name = this.user.displayName;
-        let Image = this.user.photoURL;
+    let Email = this.user.email;
+    let Name = this.user.displayName;
+    let Image = this.user.photoURL;
 
-        dbUserRef.set({Email,Name,Image})
-        .then(res=>console.log("Added new user to firedatabase"));
-      }
-      sub.unsubscribe();
-    });
+    dbUserRef.update({Email,Name,Image})
+    .then(res=>console.log("Updated user to firedatabase"));
   }
 
   login(provider){
