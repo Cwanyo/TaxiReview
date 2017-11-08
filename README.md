@@ -2,7 +2,7 @@
 
 This hybrid mobile application is a part of the Hybrid Mobile Development (CS 4404) project that created by Assumption University students.
 
-# How to run this project
+# Getting Started
 
 ### How to set up:
 
@@ -41,8 +41,14 @@ $ ionic cordova platform add android
 $ ionic cordova run android
 ```
 
+# Architecture
+- [Ionic3](https://ionicframework.com) & [Cordova](https://cordova.apache.org) - The hybrid application framework
+- [Firebase](https://firebase.google.com) - Used for authentication, realtime database and cloud storage
+
 # Description
 The application that allows users to search and check taxi reviews from other users by entering the licence number. Also, users can comment or give rating on that particular taxi.
+
+<img src="doc/Poster_taxireview.png" height="750px">
 
 # Features
 
