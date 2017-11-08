@@ -60,7 +60,7 @@ The application that allows users to search and check taxi reviews from other us
 ### Account Registration 
 - Login with Google or Facebook
 
-### Find that Taxi
+### Find Taxi
 - Take a photo or typing in the licence plate number to find the taxi
 
 ### Create taxi review
