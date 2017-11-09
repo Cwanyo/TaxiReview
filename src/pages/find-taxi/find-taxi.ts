@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, Platform } from 'ionic-angular';
 
 import { TaxiDetailPage } from '../taxi-detail/taxi-detail';
 
@@ -36,7 +36,8 @@ export class FindTaxiPage {
     public navCtrl: NavController,
     private afDB:AngularFireDatabase,
     private camera: Camera,
-    public restApiProvider: RestApiProvider
+    public restApiProvider: RestApiProvider,
+    public platform: Platform 
   ) {
     console.log("FindTaxiPage");
   }
@@ -55,7 +56,33 @@ export class FindTaxiPage {
     this.taxiLicensePlate = '';
   }
 
-  takePhoto(){
+  takePhotoViaHTML(event){
+    let pic = event.target.files[0];
+    console.log(pic);
+    console.log(event.target.files[0]);
+    var reader = new FileReader(); 
+    reader.onload = this._handleReaderLoaded.bind(this); 
+    reader.readAsBinaryString(pic);
+  }
+
+  _handleReaderLoaded(readerEvt) { 
+    this.resetValue();
+
+    var binaryString = readerEvt.target.result;
+    let imageData = btoa(binaryString)
+    this.taxiPhoto = 'data:image/jpeg;base64,' + imageData; 
+    this.rawTaxiPhoto = imageData;
+
+    this.gotTaxiImage = true;
+    console.log("Took image");
+    
+    this.taxiLicensePlate = 'Please wait!';
+
+    //search taxi detail
+    this.searchTaxiDetail();
+  } 
+
+  takePhotoViaNative(){
     //reset input field and pic
     this.resetValue();    
 
@@ -80,20 +107,24 @@ export class FindTaxiPage {
       this.taxiLicensePlate = 'Please wait!';
 
       //search taxi detail
-      this.restApiProvider.getLicensePlate(this.rawTaxiPhoto)
-      .then(data => {
-        this.taxiDetail = data;
-        console.log("Got taxiDetail",this.taxiDetail);
-        //check that taxi detail is valid
-        if(this.checkValidTaxiDetail()){
-          this.gotTaxiDatail = true;
-        }
-      })
-      .catch(error =>{
-        console.log("Error using openalpr api",error);
-      });
+      this.searchTaxiDetail();
     })
     .catch(error => console.log("Error taking photo",error));
+  }
+
+  searchTaxiDetail(){
+     this.restApiProvider.getLicensePlate(this.rawTaxiPhoto)
+     .then(data => {
+       this.taxiDetail = data;
+       console.log("Got taxiDetail",this.taxiDetail);
+       //check that taxi detail is valid
+       if(this.checkValidTaxiDetail()){
+         this.gotTaxiDatail = true;
+       }
+     })
+     .catch(error =>{
+       console.log("Error using openalpr api",error);
+     });
   }
 
   checkValidTaxiDetail(){
