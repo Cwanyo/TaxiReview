@@ -58,14 +58,13 @@ export class FindTaxiPage {
 
   takePhotoViaHTML(event){
     let pic = event.target.files[0];
-    console.log(pic);
-    console.log(event.target.files[0]);
     var reader = new FileReader(); 
     reader.onload = this._handleReaderLoaded.bind(this); 
     reader.readAsBinaryString(pic);
   }
 
   _handleReaderLoaded(readerEvt) { 
+    //reset input field and pic
     this.resetValue();
 
     var binaryString = readerEvt.target.result;
