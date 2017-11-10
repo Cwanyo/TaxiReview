@@ -21,7 +21,7 @@
             <ion-input type="text" [(ngModel)]="taxiLicensePlate" placeholder="ทว2434"></ion-input>
         </ion-item>
 
-        <input id="uploadImage" type="file" accept="image/*" capture style="display: none;" (change)="takePhotoViaHTML($event)">
+        <input id="uploadImage" type="file" accept="image/jpeg" capture style="display: none;" (change)="takePhotoViaHTML($event)">
 
         <button *ngIf="this.platform.is('cordova')==true" class="button-general" ion-button color="light" block on-click="takePhotoViaNative()">
             <ion-icon name="camera"></ion-icon>&nbsp;Take a photo
