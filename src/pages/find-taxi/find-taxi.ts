@@ -88,7 +88,6 @@ export class FindTaxiPage {
     canvas = document.createElement('canvas'),
     ctx = canvas.getContext("2d");
 
-     // set proper canvas dimensions before transform & export
      if (4 < this.taxiPhotoOrientation && this.taxiPhotoOrientation < 9) {
       canvas.width = height;
       canvas.height = width;
@@ -97,7 +96,6 @@ export class FindTaxiPage {
       canvas.height = height;
     }
 
-    // transform context before drawing image
     switch (this.taxiPhotoOrientation) {
       case 2: ctx.transform(-1, 0, 0, 1, width, 0); break;
       case 3: ctx.transform(-1, 0, 0, -1, width, height ); break;
@@ -109,14 +107,12 @@ export class FindTaxiPage {
       default: break;
     }
 
-    // draw image
     ctx.drawImage(img, 0, 0);
 
-    //export to base64 jpeg and reduce image quality 50%
-    let imageData = canvas.toDataURL("image/jpeg",0.5);
-    // export base64
+    //export to base64 jpeg and set image quality  25%
+    let imageData = canvas.toDataURL("image/jpeg",0.25);
+
     this.taxiPhoto = imageData;
-    
     this.rawTaxiPhoto = imageData.split("base64,")[1];
     
     this.gotTaxiImage = true;
@@ -166,36 +162,12 @@ export class FindTaxiPage {
     }
   }
 
-  pictureReader(picture){
-    var reader = new FileReader(); 
-    reader.onload = this._handlePictureReaderLoaded.bind(this); 
-    reader.readAsBinaryString(picture);
-  }
-
-  _handlePictureReaderLoaded(readerEvt) { 
-    //reset input field and pic
-    this.resetValue();
-
-    var binaryString = readerEvt.target.result;
-    let imageData = btoa(binaryString)
-    this.taxiPhoto = 'data:image/jpeg;base64,' + imageData; 
-    this.rawTaxiPhoto = imageData;
-
-    this.gotTaxiImage = true;
-    console.log("Took image");
-    
-    this.taxiLicensePlate = 'Please wait!';
-
-    //search taxi detail
-    this.searchTaxiDetail();
-  } 
-  
   takePhotoViaNative(){
     //reset input field and pic
     this.resetValue();    
 
     const options: CameraOptions = {
-      quality: 50,
+      quality: 25,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
