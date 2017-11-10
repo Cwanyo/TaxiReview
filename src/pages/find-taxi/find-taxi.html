@@ -14,18 +14,27 @@
     <div class="div-color">
 
         <div *ngIf="taxiPhoto">
-            <img [src]="taxiPhoto" style="display:block;width:auto;height:400px;margin-left:auto;margin-right:auto;" />
+            <img [src]="taxiPhoto" style="display:block;width:auto;height:200px;margin-left:auto;margin-right:auto;" />
         </div>
         <ion-item id="findTaxi-input3" style="width:90%;margin-left:5%;background-color:#F1F1E9;font-size:30px">
             <ion-label stacked>Input Plate Number</ion-label>
             <ion-input type="text" [(ngModel)]="taxiLicensePlate" placeholder="ทว2434"></ion-input>
         </ion-item>
-        <button class="button-general" id="findTaxi-button1" ion-button color="light" block on-click="takePhoto()">
+
+        <input id="uploadImage" type="file" accept="image/jpeg" capture style="display: none;" (change)="takePhotoViaHTML($event)">
+
+        <button *ngIf="this.platform.is('cordova')==true" class="button-general" ion-button color="light" block on-click="takePhotoViaNative()">
             <ion-icon name="camera"></ion-icon>&nbsp;Take a photo
         </button>
+
+        <button *ngIf="this.platform.is('cordova')==false" class="button-general" ion-button color="light" block onclick="document.getElementById('uploadImage').click();">
+            <ion-icon name="camera"></ion-icon>&nbsp;Take a photo
+        </button>
+
         <button class="button-general" id="findTaxi-button7" [disabled]="!isValidTaxiInfo()" on-click="goToTaxiDetail()">
             <ion-icon name="search"></ion-icon>&nbsp;Search
         </button>
 
     </div>
+
 </ion-content>
