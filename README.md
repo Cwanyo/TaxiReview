@@ -52,7 +52,7 @@ $ ionic cordova run android
 The application that allows users to find and check taxi reviews from other users in realtime
 
 <p align="center">
-    <img src="doc/Poster_taxireview.png" height="750px">
+    <img src="doc/Poster_taxireview_A1.png" height="750px">
 </p>
 
 # Features
