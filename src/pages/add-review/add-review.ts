@@ -9,7 +9,6 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 
 import { Observable } from 'rxjs/Observable';
-
 @Component({
   selector: 'page-add-review',
   templateUrl: 'add-review.html'
@@ -69,7 +68,13 @@ export class AddReviewPage {
         console.log("Taxi review not exist");
         //add review
         taxiReviewsRef.set(curTime, {UserId,Service,Politeness,Cleanness,Comment})
-        .then(res=>console.log("Create and add new review of taxi in firedatabase"));
+        .then(res=>console.log("Create and add new review of taxi in firedatabase"))
+        .then(() => {
+          //add my review
+          this.afDB.object('Users/'+this.user.uid+'/Reviews/'+this.taxiLicensePlate).set(true)
+          .then(res=>console.log("Added to my review"));
+        })
+        .catch(error=>console.log(error))
       }else{
         console.log("Taxi review exist");
         //Check user review already exist or not
@@ -81,7 +86,13 @@ export class AddReviewPage {
             console.log("Current user review never exist");
             //add review
             taxiReviewsRef.set(curTime, {UserId,Service,Politeness,Cleanness,Comment})
-            .then(res=>console.log("Add new review of taxi in firedatabase"));
+            .then(res=>console.log("Add new review of taxi in firedatabase"))
+            .then(() => {
+              //add my review
+              this.afDB.object('Users/'+this.user.uid+'/Reviews/'+this.taxiLicensePlate).set(true)
+              .then(res=>console.log("Added to my review"));
+            })
+            .catch(error=>console.log(error))
           }else{
             console.log("Current user review already exist",curData);
             //Delete all the previous review of the current user
@@ -91,16 +102,19 @@ export class AddReviewPage {
               .then(()=>{
                 //add review
                 taxiReviewsRef.set(curTime, {UserId,Service,Politeness,Cleanness,Comment})
-                .then(res=>console.log("Add new review of taxi in firedatabase"));
+                .then(res=>console.log("Add new review of taxi in firedatabase"))
+                .then(() => {
+                  //add my review
+                  this.afDB.object('Users/'+this.user.uid+'/Reviews/'+this.taxiLicensePlate).set(true)
+                  .then(res=>console.log("Added to my review"));
+                })
+                .catch(error=>console.log(error))
               })
               .catch(err=>console.log("Error deleting review",err));
             });
           }
           curSub.unsubscribe();
         });
-        //add my review
-        this.afDB.object('Users/'+this.user.uid+'/Reviews/'+this.taxiLicensePlate).set(true)
-        .then(res=>console.log("Added to my review"));
       }
       sub.unsubscribe();
     });
