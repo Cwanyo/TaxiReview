@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.wvn.taxireview" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.wvn.taxireview" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Taxi Review</name>
     <description>Find and provide taxi reviews</description>
     <author email="manwan444@gmail.com" href="https://github.com/Cwanyo/TaxiReview">Cwan</author>

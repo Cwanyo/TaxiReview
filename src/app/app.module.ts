@@ -18,6 +18,8 @@ import { FindTaxiPage } from '../pages/find-taxi/find-taxi';
 import { RecentViewPage } from '../pages/recent-view/recent-view';
 import { MyReviewPage } from '../pages/my-review/my-review';
 
+import { Autosize } from './../components/autosize/autosize';
+
 import { TaxiDetailPage } from '../pages/taxi-detail/taxi-detail';
 import { AddReviewPage } from '../pages/add-review/add-review';
 
@@ -39,7 +41,8 @@ import { RestApiProvider } from '../providers/rest-api/rest-api';
     MyReviewPage,
     TaxiDetailPage,
     AddReviewPage,
-    TabsPage
+    TabsPage,
+    Autosize
   ],
   imports: [
     BrowserModule,
