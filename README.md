@@ -19,7 +19,7 @@ The application that allows users to find and check taxi reviews from other user
 ### Find Taxi
 - Take a photo or typing in the licence plate number to find the taxi
 
-### Create Taxi Review
+### Create Review
 - Give rating according to categories (e.g. service,politeness or cleanness)
 - Comment in text
 
@@ -73,7 +73,7 @@ $ ionic cordova run android
 # API
 - [OpenALPR](https://github.com/openalpr/openalpr) - Automatic license plate recognition library
 
-# Known issues and bugs
+# Known Issues And Bugs
 
 # Contributors
 - Chatchawan yoojuie
