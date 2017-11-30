@@ -2,6 +2,35 @@
 
 This hybrid mobile application is a part of the Hybrid Mobile Development (CS 4404) project that created by Assumption University students.
 
+Link to our [website](https://taxireview-wvn.firebaseapp.com)
+
+# Description
+The application that allows users to find and check taxi reviews from other users in realtime
+
+<p align="center">
+    <img src="doc/Poster_taxireview_A1.png" height="750px">
+</p>
+
+# Features
+
+### Account Registration 
+- Login via Google or Facebook
+
+### Find Taxi
+- Take a photo or typing in the licence plate number to find the taxi
+
+### Create Taxi Review
+- Give rating according to categories (e.g. service,politeness or cleanness)
+- Comment in text
+
+### View Reviews
+- Show taxi details
+- Show overall rating and comment from other users in realtime
+
+# Prototype
+![Prototype Taxi Review](doc/prototype.png)
+Link to our [prototype](https://creator.ionic.io/share/dd7f0f339376)
+
 # Getting Started
 
 ### How to set up:
@@ -48,38 +77,9 @@ $ ionic cordova run android
 # API
 - [OpenALPR](https://github.com/openalpr/openalpr) - Automatic license plate recognition library
 
-# Description
-The application that allows users to find and check taxi reviews from other users in realtime
-
-<p align="center">
-    <img src="doc/Poster_taxireview_A1.png" height="750px">
-</p>
-
-# Features
-
-### Account registration 
-- Login via Google or Facebook
-
-### Find taxi
-- Take a photo or typing in the licence plate number to find the taxi
-
-### Create taxi review
-- Give rating according to categories (e.g. service,politeness or cleanness)
-- Comment in text
-
-### View reviews
-- Show taxi details
-- Show overall rating and comment from other users in realtime
-
-# Prototype
-![Prototype Taxi Review](doc/prototype.png)
-Link to our [prototype](https://creator.ionic.io/share/dd7f0f339376)
-
 # Known issues and bugs
-- There are no effective ways to sort data in the descending order for firebase realtime database
 
 # Contributors
 - Chatchawan yoojuie
 - Vorapat phorncharroenroj
 
-Link to our [website](https://taxireview-wvn.firebaseapp.com)
