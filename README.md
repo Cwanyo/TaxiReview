@@ -29,7 +29,7 @@ The application that allows users to find and check taxi reviews from other user
 
 # Getting Started
 
-### How to set up:
+### How To Set Up:
 
 Download and install the latest [Node.js](https://nodejs.org/en/). Then, install the Ionic CLI and Cordova:
 
@@ -37,7 +37,7 @@ Download and install the latest [Node.js](https://nodejs.org/en/). Then, install
 $ npm install -g ionic cordova
 ```
 
-### How to run with the Ionic CLI:
+### How To Run With The Ionic CLI:
 
 First, clone this repository and install all the required dependencies:
 
