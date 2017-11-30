@@ -27,10 +27,6 @@ The application that allows users to find and check taxi reviews from other user
 - Show taxi details
 - Show overall rating and comment from other users in realtime
 
-# Prototype
-![Prototype Taxi Review](doc/prototype.png)
-Link to our [prototype](https://creator.ionic.io/share/dd7f0f339376)
-
 # Getting Started
 
 ### How to set up:
