@@ -21,9 +21,9 @@ export class AddReviewPage {
 
   public taxiReviews: Observable<any[]>;
 
-  public Service:string;
-  public Politeness:string;
-  public Cleanness:string;
+  public Service:number;
+  public Politeness:number;
+  public Cleanness:number;
   public Comment:string;
 
   constructor(
@@ -59,11 +59,11 @@ export class AddReviewPage {
 
     let sub = this.taxiReviews.subscribe(taxiReview => {
       let UserId = this.user.uid;
-      let Service = this.Service;
-      let Politeness = this.Politeness;
-      let Cleanness = this.Cleanness;
+      let Service: number = Number(this.Service);
+      let Politeness: number = Number(this.Politeness);
+      let Cleanness: number = Number(this.Cleanness);
       let Comment = this.Comment;
-
+    
       if(taxiReview.length == 0){
         console.log("Taxi review not exist");
         //add review
