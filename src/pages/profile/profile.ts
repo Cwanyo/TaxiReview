@@ -40,7 +40,7 @@ export class ProfilePage {
 
     let Email = this.user.email;
     let Name = this.user.displayName;
-    let Image = this.user.providerData[0].;
+    let Image = this.user.providerData[0].photoURL;
 
     dbUserRef.update({Email,Name,Image})
     .then(res=>console.log("Updated user to firedatabase"));

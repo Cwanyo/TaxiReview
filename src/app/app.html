@@ -4,7 +4,7 @@
 
         <div class="profile-details" *ngIf="user != null">
             <a style="display:block;" menuClose="" on-click="goToProfile()">
-                <img src="{{user.photoURL}}" style="display:block;width:50%;height:auto;margin-left:auto;margin-right:auto;" />
+                <img src="{{user.providerData[0].photoURL}}" style="display:block;width:50%;height:auto;margin-left:auto;margin-right:auto;" />
             </a>
             <h3 id="menu-heading1" style="color:#FFFFFF;font-weight:300;text-align:center;" menuClose="" on-click="goToProfile()">
                 {{user.displayName}}
